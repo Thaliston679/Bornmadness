@@ -13,6 +13,7 @@ namespace SG
         private Transform myTransform;
         private Vector3 cameraTransformPosition;
         private LayerMask ignoreLayers;
+        private Vector3 cameraFollowVelocity = Vector3.zero;
 
         public static CameraHandler singleton;
 
@@ -20,11 +21,16 @@ namespace SG
         public float followSpeed = 0.2f;
         public float pivotSpeed = 0.03f;
 
+        private float targetPosition;
         private float defaultPosition;
         private float lookAngle;
         private float pivotAngle;
         public float minimumPivot = -35;
         public float maximumPivot = 35;
+
+        public float cameraSphereRadius = 0.2f;
+        public float cameraCollisionOffSet = 0.2f;
+        public float minimumCollisionOffset = 0.2f;
 
         private void Awake()
         {
@@ -37,7 +43,7 @@ namespace SG
 
         public void FollowTarget(float delta)
         {
-            Vector3 targetPosition = Vector3.Lerp(myTransform.position, targetTransform.position, delta / followSpeed);
+            Vector3 targetPosition = Vector3.SmoothDamp(myTransform.position, targetTransform.position, ref cameraFollowVelocity, delta / followSpeed);
             myTransform.position = targetPosition;
         }
 
@@ -57,6 +63,28 @@ namespace SG
 
             targetRotation = Quaternion.Euler(rotation);
             cameraPivotTransform.localRotation = targetRotation;
+        }
+
+        private void HandleCameraCollisions(float delta)
+        {
+            targetPosition = defaultPosition;
+            RaycastHit hit;
+            Vector3 direction = cameraTransform.position - cameraPivotTransform.position;
+            direction.Normalize();
+
+            if (Physics.SphereCast(cameraPivotTransform.position, cameraSphereRadius, direction, out hit, Mathf.Abs(targetPosition), ignoreLayers))
+            {
+                float dis = Vector3.Distance(cameraPivotTransform.position, hit.point);
+                targetPosition = -(dis - cameraCollisionOffSet); 
+            }
+
+            if(Mathf.Abs(targetPosition) < minimumCollisionOffset)
+            {
+                targetPosition = -minimumCollisionOffset;
+            }
+
+            cameraTransformPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, delta / 0.2f);
+            cameraTransform.localPosition = cameraTransformPosition;
         }
     }
 }
