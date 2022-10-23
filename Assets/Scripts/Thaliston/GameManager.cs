@@ -4,29 +4,23 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public int slotSave;
     int highScore;
-    [SerializeField]
-    SaveLoad saveLoad;
-    // Start is called before the first frame update
+
+    public int slotSave;
+    [SerializeField] SaveLoad saveLoad;
+
     void Start()
     {
         SaveG(slotSave);
         LoadG(slotSave);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SaveG(int slot)
     {
         Save s = new();
-        //
+        // Adiconar variaveis a serem salvas
         s.highScore = highScore;
-        //
+        // --
 
         string i = "/savegameslot"+slot.ToString()+".save";
 
