@@ -10,7 +10,6 @@ bool Ataque Player = Verifica se o jogador está atacando o não. Usar isso para
 
 Ataque Player*Shield(chance de defesa inimiga) = Assim que o player iniciar qualquer golpe do combo, vai ter uma chance de 10%(ou uma variavel de chance de def) que fará com que o inimigo use o escudo e fique imune a ataques do player até que o player pare de bater, assim que o player ficar (meio segundo ou 1) sem bater o inimigo vai abaixar o escudo
 
-
 /*///////////////////// Remover esquiva, muito instavel ///////////////////////////////////////
 Ataque Player*Dodge(chance de esquiva inimga) = Assim que o player iniciar qualquer golpe do combo, vai ter uma chance de 5%(ou uma variavel de chance de esquiva) que fará com que o inimigo ande para trás se possível (olhando pro player) (Verificar se atrás do inimigo existe chão pra ele desviar) (Velocidade de esquiva vai ser o dobro da velocidade de perseguição)
 *//////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,6 +19,12 @@ Ataque Player*Dodge(chance de esquiva inimga) = Assim que o player iniciar qualq
 Área de Passos(audição inimiga) = Quando o player estiver muito perto do inimigo, dependendo da sua capacidade auditiva o inimigo vai detectar o player mesmo sem conseguir ver ele, só pelo som dos passos do player. Dependendo do inimigo, ele pode ser surdo e não ouvir mesmo o player na cola dele
 
 Campo de visão(visão inimiga) = Quando o player entrar dentro do colisor da área de visão do inimigo, lançar um raycast para verificar se o inimigo consegue enxergar o player para iniciar a perseguição
+
+Tipo de ataque = Determina se o inimigo ataca de perto ou de longe
+
+Tipo de projétil = Determina qual arma de longo alcance o inimigo usa (dinamite, pedrinha, magia)
+
+Alcance de ataque = Determina o alcande do ataque (tanto para melee como ranged)
 
 Possibilidade de mesclagem de variaveis
 
@@ -38,3 +43,9 @@ Inimigos podem variar se andam sozinhos ou em grupo
 Inimigos podem variar se aparecem em áreas abertas ou fechadas
 
 Inimigos podem ter campo de locomoção limitado por áreas
+
+Inimigos podem lançar pedrinhas
+
+Inimigos podem bater / com a mão / com a espad
+
+Inimigos podem lançar coisas explosivas
