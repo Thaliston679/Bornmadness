@@ -7,6 +7,12 @@ TagManager:
   - hitDamage
   - continuosDamage
   - Enemy
+  - atkPlayer_hit
+  - atkPlayer_continuos
+  - atkEnemy_hit
+  - atkEnemy_continuos
+  - Wall
+  - Ground
   layers:
   - Default
   - TransparentFX
