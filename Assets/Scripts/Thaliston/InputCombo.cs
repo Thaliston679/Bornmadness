@@ -25,7 +25,7 @@ public class InputCombo : MonoBehaviour
             currentTapTimer = 0;
             tapCounts++;
 
-            //Chamar golpe do combo deacordo com a variavel tapCounts Ex: animAtck[tapCounts];
+            //Chamar golpe do combo de acordo com a variavel tapCounts Ex: animAtck[tapCounts];
         }
 
         if (tapCounts >= 5/*(Máximo de golpes no combo)*/)
@@ -34,5 +34,3 @@ public class InputCombo : MonoBehaviour
         }
     }
 }
-
-//Clicar e segurar para usar habilidade do Stand
