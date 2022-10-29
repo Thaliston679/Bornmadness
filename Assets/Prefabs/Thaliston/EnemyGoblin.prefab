@@ -190,13 +190,13 @@ MonoBehaviour:
   bloodParticle: {fileID: 3971424650115529628, guid: 0cbf3699f4b76124ab9809f6ec047a6a, type: 3}
   atkBox: {fileID: 4927944804721905145}
   hpMax: 10
-  listening: 8
+  listening: 6
   vision: {fileID: 336177230504786351}
   persistent: 3
   areaPatrol: 12
   velPatrol: 2
   velChase: 4
-  velAtk: 3
+  velAtk: 1.5
   defChance: 10
   defDamageIgnored: 4
   defend: 0
