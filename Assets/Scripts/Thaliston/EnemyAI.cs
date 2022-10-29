@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     NavMeshAgent agent;
-    Animator anim;
+    [SerializeField]Animator anim;
     Transform player;//Posição player
     public LayerMask whatIsGround, whatIsPlayer;//Máscara de camadas para verificar chão e player
     //Bala inimiga
@@ -55,7 +55,7 @@ public class EnemyAI : MonoBehaviour
         hp = hpMax;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
     }
 
     private void Update()
