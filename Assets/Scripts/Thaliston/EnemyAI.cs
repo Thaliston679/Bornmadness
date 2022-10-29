@@ -43,6 +43,7 @@ public class EnemyAI : MonoBehaviour
     public float areaPatrol;//influencia no tamanho da área que o inimigo cobre enquanto patrulha
     public float velPatrol;//influencia na velocidade que o inimigo se locomove durante a patrulha
     public float velChase;//influencia na velocidade que o inimigo se locomove enquanto persegue o jogador
+    private float velEnemy;//Aceleração e desaceleração da velocidade em que o inimigo patrulha ou corre
     public float velAtk;//influencia em quantos golpes por minuto o inimigo pode desferir (Tempo entre cada ataque)
     public float defChance;//influencia na chance que o inimigo tem (a cada ataque do jogador) de desviar
     public float defDamageIgnored;//influencia em quantos porcento do dano o inimigo consegue ignorar quando realiza a defesa
@@ -54,6 +55,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
+        velEnemy = velPatrol;
         hp = hpMax;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -71,6 +73,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+        agent.speed = velEnemy;
+
         //Retorna a magnitude da distancia entre o player e o inimigo
         playerDistance = (player.transform.position - transform.position).magnitude;
 
@@ -86,18 +90,20 @@ public class EnemyAI : MonoBehaviour
         if (!foundPlayer && !playerInVisionRange) Patroling();//Patrulha
         if (foundPlayer && !playerInAttackRange) ChasePlayer();//Corre até o player
         if (foundPlayer && playerInAttackRange) AttackPlayer();//Ataca o player
-
-        PersistenTimer();
         AnimationsController();
-    }
-
-    void PersistenTimer()//Tempo que continua seguindo após perder de vista
-    {
-
     }
 
     private void Patroling()
     {
+        if(velEnemy > velPatrol)
+        {
+            velEnemy -= Time.deltaTime;
+        }
+        else
+        {
+            velEnemy = velPatrol;
+        }
+
         if (!walkPointSet) SearchWalkPoint(); //Se não tiver nenhum ponto setado, procura um lugar para patrulhar
 
         if (walkPointSet) agent.SetDestination(walkPoint); //Se tiver algum ponto setado, vai na direção dele
@@ -121,6 +127,14 @@ public class EnemyAI : MonoBehaviour
 
     private void ChasePlayer()
     {
+        if (velEnemy < velChase)
+        {
+            velEnemy += Time.deltaTime;
+        }
+        else
+        {
+            agent.speed = velChase;
+        }
         agent.SetDestination(player.position);//Seta o destino para o player
     }
 
@@ -155,6 +169,7 @@ public class EnemyAI : MonoBehaviour
     {
         if(!defend) hp -= damage;
         if (defend) hp -= (damage / defDamageIgnored);
+        Instantiate(bloodParticle, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity);
 
         if(hp <= 0)
         {
@@ -170,7 +185,7 @@ public class EnemyAI : MonoBehaviour
 
     private void ActiveDef()
     {
-        if(playerDistance < attackRange && enemyType == 0)
+        if(playerDistance <= attackRange && enemyType == 0)
         {
             if (Random.Range(0, 100) <= defChance)
             {
@@ -224,16 +239,6 @@ public class EnemyAI : MonoBehaviour
         //Defendendo
         anim.SetBool("Def", defend);
         
-    }
-
-    public void MeleeAtkActive()
-    {
-
-    }
-
-    public void MeleeAtkDesactive()
-    {
-
     }
 
     public void RangeAtk()
