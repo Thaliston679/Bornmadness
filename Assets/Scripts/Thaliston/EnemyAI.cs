@@ -28,6 +28,8 @@ public class EnemyAI : MonoBehaviour
     public GameObject bloodParticle;
     //
 
+    public GameObject atkBox;
+
     //Variaveis Principais do inimigo
     [Header("Atributos")]
     public float hpMax;//influencia na vida máxima do inimigo
@@ -35,10 +37,9 @@ public class EnemyAI : MonoBehaviour
     public float listening;//influencia na distância que o inimigo ouve o jogador ao redor mesmo sem ver ele, só ouvindo
 
     //Um objeto separado com um script separado vai chamar um método aqui para reconhecer a colisão com a área de visão
-    public float vision;//influencia na distância que o inimigo pode enxergar o jogador
+    public GameObject vision;//influencia na distância que o inimigo pode enxergar o jogador
 
     public float persistent;//influencia em quanto tempo o inimigo continua perseguindo o jogador mesmo sem ver ou ouvir ele
-    private float persistentTimer;//Valor atual do contador de persistencia
     public float areaPatrol;//influencia no tamanho da área que o inimigo cobre enquanto patrulha
     public float velPatrol;//influencia na velocidade que o inimigo se locomove durante a patrulha
     public float velChase;//influencia na velocidade que o inimigo se locomove enquanto persegue o jogador
@@ -49,6 +50,7 @@ public class EnemyAI : MonoBehaviour
     public int enemyType;//Variação de inimigo Range e Melee
     ///enemyType: 0 = melee, 1 = range
     public float attackRange;//Alcance do ataque
+    public float damage;//Dano do inimigo
 
     private void Awake()
     {
@@ -56,6 +58,15 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         //anim = GetComponent<Animator>();
+        if(atkBox != null)
+        {
+            EnemyAtk atkBoxS = atkBox.GetComponent<EnemyAtk>();
+            atkBoxS.SetDamage(damage);
+        }
+        if(vision != null)
+        {
+            vision.GetComponent<EnemyVision>().SetPersistense(persistent);
+        }
     }
 
     private void Update()
@@ -230,5 +241,10 @@ public class EnemyAI : MonoBehaviour
         Rigidbody rb = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 32, ForceMode.Impulse);
         rb.AddForce(transform.up * 8, ForceMode.Impulse);
+    }
+
+    public void SetPlayerInVisionRange(bool isVision)
+    {
+        playerInVisionRange = isVision;
     }
 }
