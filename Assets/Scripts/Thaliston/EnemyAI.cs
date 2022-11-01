@@ -240,13 +240,7 @@ public class EnemyAI : MonoBehaviour
         anim.SetBool("Def", defend);
         
     }
-
-    public void RangeAtk()
-    {
-        Rigidbody rb = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 32, ForceMode.Impulse);
-        rb.AddForce(transform.up * 8, ForceMode.Impulse);
-    }
+    
 
     public void SetPlayerInVisionRange(bool isVision)
     {
