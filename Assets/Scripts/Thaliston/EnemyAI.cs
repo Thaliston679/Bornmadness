@@ -69,6 +69,7 @@ public class EnemyAI : MonoBehaviour
         {
             vision.GetComponent<EnemyVision>().SetPersistense(persistent);
         }
+        ActiveDef();
     }
 
     private void Update()
@@ -91,6 +92,7 @@ public class EnemyAI : MonoBehaviour
         if (foundPlayer && !playerInAttackRange) ChasePlayer();//Corre até o player
         if (foundPlayer && playerInAttackRange) AttackPlayer();//Ataca o player
         AnimationsController();
+        
     }
 
     private void Patroling()
@@ -156,7 +158,7 @@ public class EnemyAI : MonoBehaviour
 
             ///Ao realizar o ataque, chamar reset do atk
             alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), velAtk);
+            Invoke(nameof(ResetAttack), Random.Range(velAtk - velAtk/2, velAtk + velAtk/2));
             /// ---
         }
     }
@@ -185,23 +187,29 @@ public class EnemyAI : MonoBehaviour
 
     private void ActiveDef()
     {
-        if(playerDistance <= attackRange && enemyType == 0)
+        if(playerDistance <= 1.5f && enemyType == 0 && !defend)
         {
             if (Random.Range(0, 100) <= defChance)
             {
                 defend = false;
-
             }
             else
             {
                 defend = true;
+                StartCoroutine(DesactiveDef());
             }
         }
         else
         {
             defend = false;
         }
-        Invoke(nameof(ActiveDef), 1);
+        Invoke(nameof(ActiveDef), Random.Range(3,6));
+    }
+
+    IEnumerator DesactiveDef()
+    {
+        yield return new WaitForSeconds(0.25f);
+        defend = false;
     }
 
     private void OnDrawGizmosSelected()//Mostra no editor as linhas com o raio de alcance
