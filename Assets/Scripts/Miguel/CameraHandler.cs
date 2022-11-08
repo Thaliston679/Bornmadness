@@ -45,6 +45,8 @@ namespace SG
         {
             Vector3 targetPosition = Vector3.SmoothDamp(myTransform.position, targetTransform.position, ref cameraFollowVelocity, delta / followSpeed);
             myTransform.position = targetPosition;
+
+            HandleCameraCollisions(delta);
         }
 
         public void HandleCameraRotation(float delta, float mouseXInput, float mouseYInput)
