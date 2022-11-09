@@ -69,8 +69,8 @@ namespace SG
 
         private void HandleRollInput(float delta)
         {
-            //b_Input = inputActions.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
-            b_Input = inputActions.PlayerActions.Roll.IsPressed();
+            b_Input = inputActions.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Performed;
+            //b_Input = inputActions.PlayerActions.Roll.IsPressed();
             if (b_Input)
             {
                 rollInputTimer += delta;

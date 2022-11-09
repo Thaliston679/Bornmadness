@@ -7,7 +7,7 @@ namespace SG
     public class PlayerLocomotion : MonoBehaviour
     {
         Transform cameraObject;
-        InputHandler inputManager;
+        InputHandler inputHandler;
         public Vector3 moveDirection;
 
         [HideInInspector]
@@ -20,7 +20,7 @@ namespace SG
         public new Rigidbody rigidbody;
         public GameObject normalCamera;
 
-        [Header("Ground & Air Detection Stats")]
+        [Header("Detectar colisão Chão e Ar")]
         [SerializeField]
         float groundDetectionRayStartPoint = 0.5f;
         [SerializeField]
@@ -47,7 +47,7 @@ namespace SG
         {
             playerManager = GetComponent<PlayerManager>();
             rigidbody = GetComponent<Rigidbody>();
-            inputManager = GetComponent<InputHandler>();
+            inputHandler = GetComponent<InputHandler>();
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
             cameraObject = Camera.main.transform;
             myTransform = transform;
@@ -64,10 +64,10 @@ namespace SG
         private void HandleRotation(float delta)
         {
             Vector3 targetDir = Vector3.zero;
-            float moveOverride = inputManager.moveAmount;
+            float moveOverride = inputHandler.moveAmount;
 
-            targetDir = cameraObject.forward * inputManager.vertical;
-            targetDir += cameraObject.right * inputManager.horizontal;
+            targetDir = cameraObject.forward * inputHandler.vertical;
+            targetDir += cameraObject.right * inputHandler.horizontal;
 
             targetDir.Normalize();
             targetDir.y = 0;
@@ -85,20 +85,20 @@ namespace SG
 
         public void HandleMovement(float delta)
         {
-            if (inputManager.rollFlag)
+            if (inputHandler.rollFlag)
                 return;
 
             if(playerManager.isInteracting)
                 return;
 
-            moveDirection = cameraObject.forward * inputManager.vertical;
-            moveDirection += cameraObject.right * inputManager.horizontal;
+            moveDirection = cameraObject.forward * inputHandler.vertical;
+            moveDirection += cameraObject.right * inputHandler.horizontal;
             moveDirection.Normalize();
             moveDirection.y = 0;
 
             float speed = movementSpeed;
 
-            if (inputManager.sprintFlag && inputManager.moveAmount >0.5f)
+            if (inputHandler.sprintFlag && inputHandler.moveAmount >0.5f)
             {
                 speed = sprintSpeed;
                 playerManager.isSpriting = true;
@@ -106,7 +106,7 @@ namespace SG
             }
             else
             {
-                if(inputManager.moveAmount < 0.5f)
+                if(inputHandler.moveAmount < 0.5f)
                 {
                     moveDirection *= walkingSpeed;
                     playerManager.isSpriting = false;
@@ -121,7 +121,7 @@ namespace SG
             Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
             rigidbody.velocity = projectedVelocity;
 
-            animatorHandler.UpdateAnimatorValues(inputManager.moveAmount, 0, playerManager.isSpriting);
+            animatorHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, playerManager.isSpriting);
 
             if (animatorHandler.canRotate)
             {
@@ -134,19 +134,19 @@ namespace SG
             if (animatorHandler.anim.GetBool("isInteracting"))
                 return;
 
-            if (inputManager.rollFlag)
+            if (inputHandler.rollFlag)
             {
-                moveDirection = cameraObject.forward * inputManager.vertical;
-                moveDirection += cameraObject.right * inputManager.horizontal;
+                moveDirection = cameraObject.forward * inputHandler.vertical;
+                moveDirection += cameraObject.right * inputHandler.horizontal;
 
-                if(inputManager.moveAmount > 0)
+                if(inputHandler.moveAmount > 0)
                 {
                     animatorHandler.PlayTargetAnimation("Rolling", true);
                     moveDirection.y = 0;
                     Quaternion rollRotation = Quaternion.LookRotation(moveDirection);
                     myTransform.rotation = rollRotation;
                 }
-                else
+                else if (inputHandler.moveAmount <=0)
                 {
                     animatorHandler.PlayTargetAnimation("BackStep", true);
                 }
@@ -225,7 +225,7 @@ namespace SG
 
             if (playerManager.isGrounded)
             {
-                if(playerManager.isInteracting || inputManager.moveAmount > 0)
+                if(playerManager.isInteracting || inputHandler.moveAmount > 0)
                 {
                     myTransform.position = Vector3.Lerp(myTransform.position, targetPosition, Time.deltaTime);
                 }
