@@ -2817,7 +2817,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1284235698
 Animator:
   serializedVersion: 4
@@ -3229,7 +3229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c289f1f6a02615d47a601b1837d600e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.014893815
+      value: 0.01489381
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c289f1f6a02615d47a601b1837d600e0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3895,11 +3895,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c289f1f6a02615d47a601b1837d600e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.021000013
+      value: -0.02100001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c289f1f6a02615d47a601b1837d600e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.64100003
+      value: -0.641
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c289f1f6a02615d47a601b1837d600e0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4627,6 +4627,10 @@ PrefabInstance:
     - target: {fileID: 2272958167844108696, guid: 6ffeab097731dd945ab19d27df4de8c9, type: 3}
       propertyPath: m_Name
       value: Y Bot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272958167844108696, guid: 6ffeab097731dd945ab19d27df4de8c9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4489443815803028273, guid: 6ffeab097731dd945ab19d27df4de8c9, type: 3}
       propertyPath: m_LocalPosition.x
