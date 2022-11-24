@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8036956236760516636}
   - component: {fileID: 842247764}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PonteSemCorrimao 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,8 +108,39 @@ PrefabInstance:
       propertyPath: m_Name
       value: ponte-2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 04ed81da001d16048a1e51a6abf93b06, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 04ed81da001d16048a1e51a6abf93b06, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 04ed81da001d16048a1e51a6abf93b06, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04ed81da001d16048a1e51a6abf93b06, type: 3}
+--- !u!1 &3631691121730033935 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 04ed81da001d16048a1e51a6abf93b06, type: 3}
+  m_PrefabInstance: {fileID: 4839955510453525639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &7241835049848865009
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3631691121730033935}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2432090755550338912, guid: 04ed81da001d16048a1e51a6abf93b06, type: 3}
 --- !u!4 &4945023419947924332 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 04ed81da001d16048a1e51a6abf93b06, type: 3}
