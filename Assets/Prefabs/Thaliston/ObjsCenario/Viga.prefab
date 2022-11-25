@@ -91,9 +91,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: cabd47018cde5134d9accf948e8f9fea, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: cabd47018cde5134d9accf948e8f9fea, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4afd2d5023e452841be3b5456befa36c, type: 2}
     - target: {fileID: 919132149155446097, guid: cabd47018cde5134d9accf948e8f9fea, type: 3}
       propertyPath: m_Name
       value: "sustenta\xE7\xE3o"
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cabd47018cde5134d9accf948e8f9fea, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: cabd47018cde5134d9accf948e8f9fea, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cabd47018cde5134d9accf948e8f9fea, type: 3}

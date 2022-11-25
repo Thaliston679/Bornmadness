@@ -64,6 +64,7 @@ public class EnemyVision : MonoBehaviour
     public void Raycaster()
     {
         pointVision.LookAt(GameObject.FindGameObjectWithTag("Player").transform.position);
+
         if(Physics.Raycast(pointVision.position, pointVision.forward, out RaycastHit hit, 100, layers, QueryTriggerInteraction.Ignore))
         {
             Debug.DrawLine(pointVision.position, hit.point, Color.red);

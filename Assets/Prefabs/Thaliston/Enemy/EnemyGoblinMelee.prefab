@@ -140,7 +140,7 @@ GameObject:
   m_Layer: 0
   m_Name: EnemyGoblinMelee
   m_TagString: Enemy
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -153,7 +153,7 @@ Transform:
   m_GameObject: {fileID: 6475731719980183921}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7428052421142636231}
@@ -262,6 +262,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6475731719980183934}
     m_Modifications:
+    - target: {fileID: 591830661235849369, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 591830661235849369, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3ecf774d0b29447448a1ca7721cfb492, type: 2}
+    - target: {fileID: 1792481827927494448, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792481827927494448, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3ecf774d0b29447448a1ca7721cfb492, type: 2}
     - target: {fileID: 1915776564912063609, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -322,6 +338,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: GoblinMelee
       objectReference: {fileID: 0}
+    - target: {fileID: 2977754404332680571, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2977754404332680571, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3ecf774d0b29447448a1ca7721cfb492, type: 2}
+    - target: {fileID: 4276118632419337468, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276118632419337468, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3ecf774d0b29447448a1ca7721cfb492, type: 2}
+    - target: {fileID: 7376162667995840942, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376162667995840942, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3ecf774d0b29447448a1ca7721cfb492, type: 2}
+    - target: {fileID: 7569238930087679840, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7569238930087679840, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3ecf774d0b29447448a1ca7721cfb492, type: 2}
+    - target: {fileID: 8196799714057069571, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196799714057069571, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3ecf774d0b29447448a1ca7721cfb492, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc1e565b79c2e464491c9b4e3a654a1a, type: 3}
 --- !u!1 &1655461875748881302 stripped

@@ -146,7 +146,9 @@ public class EnemyAI : MonoBehaviour
 
         ///Modificar para fazer com que um objeto vazio que ficaria o local de spawn do projétil inimigo ir na direção do inimigo
         ///E fazer com que o inimigo olhe para direção Y do player somente (ou X e Z)
-        transform.LookAt(player); //Olha para o player (Modificar!!!)
+        Vector3 playerPos = player.position;
+        Vector3 lookAtPos = new(playerPos.x, transform.position.y, playerPos.z);
+        transform.LookAt(lookAtPos); //Olha para o player (Modificar!!!)
         ///(miraArma.)transform.LookAt(player);
         ///transform.LookAt(transform.position.x,player.transform.position.x,transform.position.x);
 
@@ -176,7 +178,11 @@ public class EnemyAI : MonoBehaviour
         if(hp <= 0)
         {
             anim.SetBool("Die", true);
-            Invoke(nameof(DestroyEnemy), 0.5f);
+            //Invoke(nameof(DestroyEnemy), 0.5f);
+            this.enabled = false;
+            agent.enabled = false;
+            this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
         }
     }
 
@@ -253,5 +259,13 @@ public class EnemyAI : MonoBehaviour
     public void SetPlayerInVisionRange(bool isVision)
     {
         playerInVisionRange = isVision;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("atkPlayer_hit"))
+        {
+            TakeDamage(1);
+        }
     }
 }

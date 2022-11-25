@@ -7,9 +7,18 @@ public class PlayerCamDDT : MonoBehaviour
     public float speedV;
     private float pV;
     // Update is called once per frame
+    [SerializeField]bool cursorIsA;
+
+    private void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     void Update()
     {
         RotateLook();
+        PauseGame();
     }
 
     void RotateLook()
@@ -29,5 +38,29 @@ public class PlayerCamDDT : MonoBehaviour
         {
             pV = -60;
         }
+    }
+
+    public void PauseGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            EnableMouse();
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            DisableMouse();
+        }
+    }
+
+    public void DisableMouse()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void EnableMouse()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }

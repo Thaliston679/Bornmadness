@@ -16,6 +16,8 @@ public class PlayerMoveDDT : MonoBehaviour
     public float speedH;
     private float pH;
 
+    public GameObject areaAtk;
+
 
     void Start()
     {
@@ -30,6 +32,17 @@ public class PlayerMoveDDT : MonoBehaviour
         Jump();
         CheckY();
         TurnSides();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            areaAtk.SetActive(true);
+            Invoke(nameof(DesactiveAtk), 0.1f);
+        }
+    }
+
+    void DesactiveAtk()
+    {
+        areaAtk.SetActive(false);
     }
 
     void Movement()
