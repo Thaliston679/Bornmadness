@@ -53,6 +53,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   lights: {fileID: 2638364877210848828}
+  lighAnim: {fileID: 5910049067681665881}
 --- !u!1 &2638364877210848828
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,22 +129,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TorchNew
       objectReference: {fileID: 0}
-    - target: {fileID: 6135463151815193748, guid: 82d1073065f3fc0488659ee81c1f293c, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135463151815193749, guid: 82d1073065f3fc0488659ee81c1f293c, type: 3}
-      propertyPath: m_DrawHalo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135463151815193749, guid: 82d1073065f3fc0488659ee81c1f293c, type: 3}
-      propertyPath: m_RenderMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6135463151815193749, guid: 82d1073065f3fc0488659ee81c1f293c, type: 3}
-      propertyPath: m_BounceIntensity
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6135463151815193750, guid: 82d1073065f3fc0488659ee81c1f293c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -193,6 +178,11 @@ PrefabInstance:
 --- !u!4 &5910049067681665880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6135463151815193750, guid: 82d1073065f3fc0488659ee81c1f293c, type: 3}
+  m_PrefabInstance: {fileID: 513759360996485070}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5910049067681665881 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6135463151815193751, guid: 82d1073065f3fc0488659ee81c1f293c, type: 3}
   m_PrefabInstance: {fileID: 513759360996485070}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5054880556015274317

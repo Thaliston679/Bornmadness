@@ -11,19 +11,47 @@ public class LighRayCast : MonoBehaviour
 
     public GameObject lights;
 
+    public Animator lighAnim;
+
+    [SerializeField] private bool lighActived = false;
+    [SerializeField] private float TimeToDesactive = 0;
+    [SerializeField] private bool counter = false;
+
 
     private void Update()
     {
         Raycaster();
 
+        //
         if (playerInVisionRay)
         {
+            counter = false;
+            TimeToDesactive = 0;
             if (!lights.activeSelf) lights.SetActive(true);
+            if (!lighActived)
+            {
+                lighActived = true;
+            }
+            lighAnim.SetBool("Active", true);
         }
         else
         {
+            if (!counter && lighActived) counter = true;
+            lighAnim.SetBool("Active", false);
+        }
+        //
+
+
+        //
+        if (counter) TimeToDesactive += Time.deltaTime;
+        if (TimeToDesactive > 6)
+        {
+            counter = false;
+            TimeToDesactive = 0;
+            lighActived = false;
             if (lights.activeSelf) lights.SetActive(false);
         }
+        //
     }
 
     public void Raycaster()
