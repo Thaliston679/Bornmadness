@@ -133,6 +133,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TorchNew
       objectReference: {fileID: 0}
+    - target: {fileID: 6135463151815193749, guid: 82d1073065f3fc0488659ee81c1f293c, type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6135463151815193750, guid: 82d1073065f3fc0488659ee81c1f293c, type: 3}
       propertyPath: m_RootOrder
       value: 0
