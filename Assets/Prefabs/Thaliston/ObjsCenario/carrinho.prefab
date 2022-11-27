@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5685733752761804124}
   - component: {fileID: 9206046586976846280}
   - component: {fileID: 5242774607404889978}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,9 +108,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7944582665762499918}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: carrinho
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

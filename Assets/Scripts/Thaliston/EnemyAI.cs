@@ -33,7 +33,7 @@ public class EnemyAI : MonoBehaviour
     //Variaveis Principais do inimigo
     [Header("Atributos")]
     public float hpMax;//influencia na vida máxima do inimigo
-    private float hp;//HP atual do inimigo
+    [SerializeField]private float hp;//HP atual do inimigo
     public float listening;//influencia na distância que o inimigo ouve o jogador ao redor mesmo sem ver ele, só ouvindo
 
     //Um objeto separado com um script separado vai chamar um método aqui para reconhecer a colisão com a área de visão
@@ -52,7 +52,7 @@ public class EnemyAI : MonoBehaviour
     ///enemyType: 0 = melee, 1 = range
     public float attackRange;//Alcance do ataque
     public float damage;//Dano do inimigo
-
+    private bool escaping = false;//Faz o inimigo fugir com pouco HP
     private void Awake()
     {
         velEnemy = velPatrol;
@@ -72,6 +72,11 @@ public class EnemyAI : MonoBehaviour
         ActiveDef();
     }
 
+    private void Start()
+    {
+        Invoke(nameof(ResearchWalkPoint), 2);
+    }
+
     private void Update()
     {
         agent.speed = velEnemy;
@@ -89,10 +94,15 @@ public class EnemyAI : MonoBehaviour
 
         //Movimentação inimiga
         if (!foundPlayer && !playerInVisionRange) Patroling();//Patrulha
-        if (foundPlayer && !playerInAttackRange) ChasePlayer();//Corre até o player
-        if (foundPlayer && playerInAttackRange) AttackPlayer();//Ataca o player
+        if (foundPlayer && !playerInAttackRange && !escaping) ChasePlayer();//Corre até o player
+        if (foundPlayer && playerInAttackRange && !escaping) AttackPlayer();//Ataca o player
         AnimationsController();
-        
+
+        if (escaping) ToEscape();//Fugir do player
+        if (hp <= 1)
+        {
+            escaping = true;
+        }
     }
 
     private void Patroling()
@@ -127,6 +137,12 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    private void ResearchWalkPoint()
+    {
+        walkPointSet = false;
+        Invoke(nameof(ResearchWalkPoint), 2);
+    }
+
     private void ChasePlayer()
     {
         if (velEnemy < velChase)
@@ -138,6 +154,26 @@ public class EnemyAI : MonoBehaviour
             agent.speed = velChase;
         }
         agent.SetDestination(player.position);//Seta o destino para o player
+    }
+
+    private void ToEscape()
+    {
+        if (velEnemy < velChase * 2f)
+        {
+            velEnemy += Time.deltaTime;
+        }
+        else
+        {
+            agent.speed = velChase * 2f;
+        }
+
+        if (!walkPointSet) SearchWalkPoint(); //Se não tiver nenhum ponto setado, procura um lugar para patrulhar
+
+        if (walkPointSet) agent.SetDestination(walkPoint); //Se tiver algum ponto setado, vai na direção dele
+
+        Vector3 distanceToWalkPoint = transform.position - walkPoint; //Distancia entre ele e o ponto de patrulha
+
+        if (distanceToWalkPoint.magnitude < 3f) walkPointSet = false; //Checa se ele se aproximou do ponto setado da patrulha
     }
 
     private void AttackPlayer()
@@ -160,7 +196,7 @@ public class EnemyAI : MonoBehaviour
 
             ///Ao realizar o ataque, chamar reset do atk
             alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), Random.Range(velAtk - velAtk/2, velAtk + velAtk/2));
+            Invoke(nameof(ResetAttack), Random.Range(velAtk - velAtk / 2, velAtk + velAtk / 2));
             /// ---
         }
     }
@@ -252,7 +288,13 @@ public class EnemyAI : MonoBehaviour
 
         //Defendendo
         anim.SetBool("Def", defend);
-        
+
+
+        //Fugindo
+        if (escaping)
+        {
+            anim.SetBool("Run", true);
+        }
     }
     
 
