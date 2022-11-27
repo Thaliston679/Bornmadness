@@ -17,6 +17,7 @@ public class PlayerMoveDDT : MonoBehaviour
     private float pH;
 
     public GameObject areaAtk;
+    public GameObject head;
 
 
     void Start()
@@ -47,13 +48,23 @@ public class PlayerMoveDDT : MonoBehaviour
 
     void Movement()
     {
-        float moveX = Input.GetAxisRaw("Horizontal") * speedX * speed;
+        /*float moveX = Input.GetAxisRaw("Horizontal") * speedX * speed;
         float moveZ = Input.GetAxisRaw("Vertical") * speedZ * speed;
 
 
         Vector3 posCorrect = (transform.right * moveX) + (transform.forward * moveZ);
 
-        rb.velocity = new Vector3(posCorrect.x, rb.velocity.y, posCorrect.z);
+        rb.velocity = new Vector3(posCorrect.x, rb.velocity.y, posCorrect.z);*/
+
+        float moveX = Input.GetAxisRaw("Horizontal") * speedX * speed;
+        float moveZ = Input.GetAxisRaw("Vertical") * speedZ * speed;
+
+        head.transform.eulerAngles += new Vector3(0, moveX, 0);
+
+
+        Vector3 posCorrect = transform.forward * moveZ;
+
+        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, posCorrect.z);
     }
 
     void Run()
@@ -96,6 +107,6 @@ public class PlayerMoveDDT : MonoBehaviour
     void TurnSides()
     {
         pH += speedH * Input.GetAxis("Mouse X");
-        transform.eulerAngles = new Vector3(0, pH, 0);
+        head.transform.eulerAngles = new Vector3(0, pH, 0);
     }
 }
