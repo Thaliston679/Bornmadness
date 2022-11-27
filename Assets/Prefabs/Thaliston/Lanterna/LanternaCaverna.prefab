@@ -52,7 +52,7 @@ MonoBehaviour:
   pointVision: {fileID: 7255702776216167505}
   layers:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 448
   lights: {fileID: 2638364877210848828}
   lighAnim: {fileID: 5910049067681665881}
   lighActived: 0

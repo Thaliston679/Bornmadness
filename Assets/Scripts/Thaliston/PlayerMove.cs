@@ -13,40 +13,30 @@ public class PlayerMove : MonoBehaviour
     //Input Receive Values
     Vector2 movement;
 
-    float speed = 5;
-    float turnSpeed = 0.1f;
+    [SerializeField] float speed = 5;
+    [SerializeField] float turnSpeed = 0.1f;
     float turnVelocity;
+
+    //Pulo
+    [SerializeField] float gravity = -20f;
+    [SerializeField] float jumpSpeed = 15;
+    bool doJump;
+    float jumpTimer = 0;
+    [SerializeField] Vector3 moveVelocity;
+
+    bool canJump;
+    float canJumpTime = 0.25f;
 
     void Start()
     {
-        //rb = GetComponent<Rigidbody>();
         cc = GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
-    private void FixedUpdate()
-    {
-        /*My Code
-        Vector3 newDirection = new Vector3(movement.x, 0, movement.y);
-        rb.velocity = new(movement.x * speed, rb.velocity.y, movement.y * speed);
-
-        Vector3 newRotate = Vector3.RotateTowards(transform.forward, newDirection, turnSpeed * Time.deltaTime, 0);
-        rb.MoveRotation(Quaternion.LookRotation(newRotate));
-        */
-
-        /*Tutorial
-        Vector3 direction = new Vector3(movement.x, 0, movement.y);
-        rb.MovePosition(rb.position + direction * Time.deltaTime * speed);
-
-        Vector3 newRotation = Vector3.RotateTowards(transform.forward, direction, turnSpeed * Time.deltaTime, 0);
-        rb.MoveRotation(Quaternion.LookRotation(newRotation));
-        */
-    }
 
     private void Update()
     {
+        //Movimentação
         Vector3 direction = new Vector3(movement.x, 0f, movement.y).normalized; //.normalize serve pra evitar erro de aumentar velocidade ao ir pra frente e pra tras ao mesmo tempo
-
         if(direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -56,6 +46,41 @@ public class PlayerMove : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             cc.Move(moveDir.normalized * speed * Time.deltaTime);
         }
+
+        //Verificadores de Pulo
+        if (cc.isGrounded)
+        {
+            canJump = true;
+            canJumpTime = 0.25f;
+
+            if(moveVelocity.y <= 0.5f)
+            {
+                moveVelocity.y = 0;
+            }
+        }
+        if(canJump && !cc.isGrounded)
+        {
+            canJumpTime -= Time.deltaTime;
+        }
+        if(canJumpTime <= 0 && !cc.isGrounded)
+        {
+            canJump = false;
+        }
+        //Ação de pular
+        if (canJump && doJump && jumpTimer > 0f)
+        {
+            doJump = false;
+            jumpTimer = 0f;
+
+            moveVelocity.y = jumpSpeed;
+        }
+
+        //Gravidade
+        moveVelocity.y += gravity * Time.deltaTime;
+        cc.Move(moveVelocity * Time.deltaTime);
+
+        //Controlador de váriaveis
+        JumpTimer();
     }
 
     public void PlayerOnMove(InputAction.CallbackContext value)
@@ -65,7 +90,23 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerOnJump(InputAction.CallbackContext value)
     {
+        if (value.started)
+        {
+            doJump = true;
+            jumpTimer = 0.2f;
+        }
+    }
 
+    void JumpTimer()
+    {
+        if(doJump && jumpTimer >= 0f)
+        {
+            jumpTimer -= Time.deltaTime;
+        }
+        if(jumpTimer < 0)
+        {
+            doJump = false;
+        }
     }
 
     public void PlayerOnHeal(InputAction.CallbackContext value)
