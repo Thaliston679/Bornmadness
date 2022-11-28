@@ -34,7 +34,6 @@ Transform:
   - {fileID: 8993629985771376735}
   - {fileID: 3020298967011115094}
   - {fileID: 8993629984993066600}
-  - {fileID: 8993629986203349789}
   - {fileID: 1661055849251036861}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -100,6 +99,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c6fbe19c-c674-4daa-8f45-f891ec0d647d
     m_ActionName: Player/Heal[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ea91a0d0-84d8-4ff7-8fa4-6d7a41707705
+    m_ActionName: Player/Look[/Mouse/delta,/XInputControllerWindows/rightStick]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -119,6 +122,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   cc: {fileID: 0}
+  cam: {fileID: 0}
+  speed: 5
+  turnSpeed: 0.1
+  gravity: -20
+  jumpSpeed: 15
+  moveVelocity: {x: 0, y: 0, z: 0}
 --- !u!143 &1830008949
 CharacterController:
   m_ObjectHideFlags: 0
@@ -303,13 +312,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8993629986203349790}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.98}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6305978, y: 2.2186668, z: 0}
+  m_LocalScale: {x: 3.8587012, y: 5.4169807, z: 3.8207788}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8993629984348990718}
-  m_RootOrder: 3
+  m_Father: {fileID: 7173409996409353098}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8993629986203349786
 MeshFilter:
@@ -383,7 +392,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5909775685279709153, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5909775685279709153, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
       propertyPath: m_LocalScale.x
@@ -454,6 +463,11 @@ PrefabInstance:
 --- !u!4 &1661055849251036861 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5909775685279709153, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
+  m_PrefabInstance: {fileID: 4976192617733106012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7173409996409353098 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2775324237384129238, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
   m_PrefabInstance: {fileID: 4976192617733106012}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8993629985321006272

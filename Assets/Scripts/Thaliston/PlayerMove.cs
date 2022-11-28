@@ -70,6 +70,7 @@ public class PlayerMove : MonoBehaviour
         if (canJump && doJump && jumpTimer > 0f)
         {
             doJump = false;
+            canJump = false;
             jumpTimer = 0f;
 
             moveVelocity.y = jumpSpeed;
@@ -81,6 +82,50 @@ public class PlayerMove : MonoBehaviour
 
         //Controlador de váriaveis
         JumpTimer();
+
+        //Controlador de animações
+        AnimationsControl();
+    }
+
+    void AnimationsControl()
+    {
+        if (cc.isGrounded)
+        {
+            if(Mathf.Abs(movement.x) >= 0.5f || Mathf.Abs(movement.y) >= 0.5f)
+            {
+                anim.SetBool("Walk", true);
+                anim.SetBool("Idle", false);
+            }
+            else
+            {
+                anim.SetBool("Walk", false);
+                anim.SetBool("Idle", true);
+            }
+        }
+        else
+        {
+            anim.SetBool("Walk", false);
+            anim.SetBool("Idle", false);
+            anim.SetBool("DoAtk", false);
+        }
+
+        if (cc.velocity.y <= -6f)
+        {
+            anim.SetBool("Fall", true);
+        }
+        else
+        {
+            anim.SetBool("Fall", false);
+        }
+
+        if (cc.velocity.y >= 1f)
+        {
+            anim.SetBool("Jump", true);
+        }
+        else
+        {
+            anim.SetBool("Jump", false);
+        }
     }
 
     public void PlayerOnMove(InputAction.CallbackContext value)
@@ -96,7 +141,6 @@ public class PlayerMove : MonoBehaviour
             jumpTimer = 0.2f;
         }
     }
-
     void JumpTimer()
     {
         if(doJump && jumpTimer >= 0f)
