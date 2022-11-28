@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     NavMeshAgent agent;
-    [SerializeField]Animator anim;
+    [SerializeField] Animator anim;
     Transform player;//Posição player
     public LayerMask whatIsGround, whatIsPlayer;//Máscara de camadas para verificar chão e player
     //Bala inimiga
@@ -48,6 +48,8 @@ public class EnemyAI : MonoBehaviour
     public float defChance;//influencia na chance que o inimigo tem (a cada ataque do jogador) de desviar
     public float defDamageIgnored;//influencia em quantos porcento do dano o inimigo consegue ignorar quando realiza a defesa
     public bool defend;//True enquanto o inimigo estiver defendendo
+    [SerializeField] bool tryDefend = false;
+    [SerializeField] float tryDefTimer = 0f;
     public int enemyType;//Variação de inimigo Range e Melee
     ///enemyType: 0 = melee, 1 = range
     public float attackRange;//Alcance do ataque
@@ -69,7 +71,6 @@ public class EnemyAI : MonoBehaviour
         {
             vision.GetComponent<EnemyVision>().SetPersistense(persistent);
         }
-        ActiveDef();
     }
 
     private void Start()
@@ -93,9 +94,9 @@ public class EnemyAI : MonoBehaviour
         if (!playerInListeningRange && !playerInVisionRange) foundPlayer = false;
 
         //Movimentação inimiga
-        if (!foundPlayer && !playerInVisionRange) Patroling();//Patrulha
-        if (foundPlayer && !playerInAttackRange && !escaping) ChasePlayer();//Corre até o player
-        if (foundPlayer && playerInAttackRange && !escaping) AttackPlayer();//Ataca o player
+        if (!foundPlayer && !playerInVisionRange && !defend) Patroling();//Patrulha
+        if (foundPlayer && !playerInAttackRange && !escaping && !defend) ChasePlayer();//Corre até o player
+        if (foundPlayer && playerInAttackRange && !escaping && !defend) AttackPlayer();//Ataca o player
         AnimationsController();
 
         if (escaping) ToEscape();//Fugir do player
@@ -103,6 +104,8 @@ public class EnemyAI : MonoBehaviour
         {
             escaping = true;
         }
+
+        ActiveDef();
     }
 
     private void Patroling()
@@ -229,29 +232,48 @@ public class EnemyAI : MonoBehaviour
 
     private void ActiveDef()
     {
-        if(playerDistance <= 1.5f && enemyType == 0 && !defend)
+        if (playerDistance <= attackRange*2 && player.GetComponent<PlayerMove>().attacking && !tryDefend && !escaping)
         {
-            if (Random.Range(0, 100) <= defChance)
+            tryDefend = true;
+            tryDefTimer = 0.5f;
+
+            if (enemyType == 0 && !defend)
             {
-                defend = false;
+                if (Random.Range(0, 100) <= defChance)
+                {
+                    defend = true;
+                    StartCoroutine(DesactiveDef());
+                }
+                else
+                {
+                    defend = false;
+                }
             }
             else
             {
-                defend = true;
-                StartCoroutine(DesactiveDef());
+                defend = false;
             }
         }
-        else
+
+        if (tryDefend)
         {
-            defend = false;
+            if(tryDefTimer >= 0)
+            {
+                tryDefTimer -= Time.deltaTime;
+            }
+            if(tryDefTimer < 0)
+            {
+                tryDefend = false;
+            }
         }
-        Invoke(nameof(ActiveDef), Random.Range(3,6));
     }
 
     IEnumerator DesactiveDef()
     {
-        yield return new WaitForSeconds(0.25f);
-        defend = false;
+        yield return new WaitForSeconds(0.3f);
+        defend = false;/*
+        yield return new WaitForSeconds(3.5f);
+        tryDefend = false;*/
     }
 
     private void OnDrawGizmosSelected()//Mostra no editor as linhas com o raio de alcance

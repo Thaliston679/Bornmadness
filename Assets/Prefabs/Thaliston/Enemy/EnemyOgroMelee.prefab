@@ -201,6 +201,7 @@ MonoBehaviour:
   defChance: 50
   defDamageIgnored: 1
   defend: 0
+  tryDefend: 0
   enemyType: 0
   attackRange: 2
   damage: 5

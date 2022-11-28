@@ -190,6 +190,7 @@ MonoBehaviour:
   bloodParticle: {fileID: 3971424650115529628, guid: 0cbf3699f4b76124ab9809f6ec047a6a, type: 3}
   atkBox: {fileID: 4927944804721905145}
   hpMax: 10
+  hp: 0
   listening: 6
   vision: {fileID: 336177230504786351}
   persistent: 3
@@ -200,6 +201,7 @@ MonoBehaviour:
   defChance: 10
   defDamageIgnored: 4
   defend: 0
+  tryDefend: 0
   enemyType: 0
   attackRange: 1
   damage: 2
