@@ -13,17 +13,6 @@ public class PlayerComboIncrement : MonoBehaviour
 
     void Increment()
     {
-        PlayerMove pm = animator.gameObject.GetComponentInParent<PlayerMove>();
-        pm.comboCount++;
-        pm.attacking = false;
-        animator.SetInteger("Atk", animator.GetInteger("Atk") + 1);
-        animator.SetBool("DoAtk", false);
-
-        if(pm.comboCount > 2)
-        {
-            pm.comboCount = 1;
-            animator.SetInteger("Atk", 1);
-            animator.SetBool("DoAtk", false);
-        }
+        animator.GetComponentInParent<PlayerMove>().attacking = false;
     }
 }

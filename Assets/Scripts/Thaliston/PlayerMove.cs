@@ -56,7 +56,6 @@ public class PlayerMove : MonoBehaviour
 
         //Controlador de váriaveis
         JumpTimer();
-        AtkTimer();
 
         //Controlador de animações
         AnimationsControl();
@@ -66,7 +65,7 @@ public class PlayerMove : MonoBehaviour
     {
         //Movimentação
         Vector3 direction = new Vector3(movement.x, 0f, movement.y).normalized; //.normalize serve pra evitar erro de aumentar velocidade ao ir pra frente e pra tras ao mesmo tempo
-        if (direction.magnitude >= 0.1f && !attacking)
+        if (direction.magnitude >= 0.1f/* && !attacking*/)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnVelocity, turnSpeed);
@@ -111,22 +110,27 @@ public class PlayerMove : MonoBehaviour
 
     void AtkControl()
     {
-        if (doAtk && atkTimer > 0f)
+        if (doAtk)
         {
-            anim.SetTrigger("Attacking");
-            //anim.SetBool("DoAtk", true);
-            attacking = true;
+            doAtk = false;
+            if (!attacking)
+            {
+                attacking = true;
+                comboCount++;
+
+                if(comboCount > 2)
+                {
+                    comboCount = 1;
+                }
+
+                anim.SetInteger("Atk", comboCount);
+                anim.SetBool("Attacking", true);
+            }
         }
 
-        if(comboCount > 1)
+        if (!attacking)
         {
-            comboTimer -= Time.deltaTime;
-        }
-        if(comboCount > 1 && comboTimer < 0)
-        {
-            comboCount--;
-            anim.SetInteger("Atk", anim.GetInteger("Atk") - 1);
-            comboTimer = 1f;
+            anim.SetBool("Attacking", false);
         }
     }
 
@@ -149,10 +153,9 @@ public class PlayerMove : MonoBehaviour
         {
             anim.SetBool("Walk", false);
             anim.SetBool("Idle", false);
-            anim.SetBool("DoAtk", false);
         }
 
-        if (cc.velocity.y <= -6f)
+        if (cc.velocity.y <= -10f)
         {
             anim.SetBool("Fall", true);
         }
@@ -211,18 +214,6 @@ public class PlayerMove : MonoBehaviour
         if (value.started)
         {
             doAtk = true;
-            atkTimer = 0.23f;
-        }
-    }
-    void AtkTimer()
-    {
-        if (doAtk && atkTimer >= 0f)
-        {
-            atkTimer -= Time.deltaTime;
-        }
-        if (atkTimer < 0)
-        {
-            doAtk = false;
         }
     }
 }
