@@ -31,10 +31,22 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float comboTimer = 0;
     public bool attacking = false;
     [SerializeField] bool doAtk = false;
-    [SerializeField] float atkTimer = 0;
+
+    //Canvas
+    //Dano
+    [SerializeField] Animator borderDamage;
+
+    //Vida
+    [SerializeField] float hp;
+    [SerializeField] float hpMax = 10;
+
+    bool dodge = false;
+    float dodgeTimer = 0f;
+    [SerializeField] GameObject frontVision;
 
     void Start()
     {
+        hp = hpMax;
         cc = GetComponent<CharacterController>();
     }
 
@@ -59,6 +71,21 @@ public class PlayerMove : MonoBehaviour
 
         //Controlador de animações
         AnimationsControl();
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            dodge = true;
+            dodgeTimer = 0.2f;
+        }
+        if (dodge)
+        {
+            if(dodgeTimer >= 0) dodgeTimer -= Time.deltaTime;
+            Dodge();
+        }
+        if(dodgeTimer < 0)
+        {
+            dodge = false;
+        }
     }
 
     void MoveControl()
@@ -74,6 +101,26 @@ public class PlayerMove : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             cc.Move(moveDir.normalized * speed * Time.deltaTime);
         }
+    }
+
+    void Dodge()
+    {
+        //Dodge
+        Vector3 dodgeDirection = new Vector3(0f, 0f, -3.5f);
+
+        float targetAngle = Mathf.Atan2(dodgeDirection.x, dodgeDirection.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+        Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+
+        cc.Move(moveDir * (speed*3) * Time.deltaTime);
+
+        //Rotacionar
+        float targetBackAngle = Mathf.Atan2(dodgeDirection.x, dodgeDirection.z) * Mathf.Rad2Deg + frontVision.transform.eulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetBackAngle, ref turnVelocity, 0.05f);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+    }
+    void DodgeTimer()
+    {
+
     }
 
     void JumpControl()
@@ -118,7 +165,7 @@ public class PlayerMove : MonoBehaviour
                 attacking = true;
                 comboCount++;
 
-                if(comboCount > 2)
+                if(comboCount > 3)
                 {
                     comboCount = 1;
                 }
@@ -131,7 +178,24 @@ public class PlayerMove : MonoBehaviour
         if (!attacking)
         {
             anim.SetBool("Attacking", false);
+
+            if(comboCount > 1)
+            {
+                if(comboTimer >= 0f)
+                {
+                    comboTimer -= Time.deltaTime;
+                }
+                if(comboTimer < 0)
+                {
+                    comboCount--;
+                }
+            }
         }
+    }
+
+    void EnemyCollision()
+    {
+        borderDamage.SetTrigger("Dano");
     }
 
     void AnimationsControl()
@@ -214,6 +278,14 @@ public class PlayerMove : MonoBehaviour
         if (value.started)
         {
             doAtk = true;
+            comboTimer = 0.25f;
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("atkEnemy_hit"))
+        {
+            EnemyCollision();
         }
     }
 }

@@ -1,5 +1,99 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1375624048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1375624049}
+  - component: {fileID: 1375624050}
+  m_Layer: 0
+  m_Name: Spot Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1375624049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375624048}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.297, z: 0.554}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1241719053124360126}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!108 &1375624050
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375624048}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 0
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.93281174, b: 0.740566, a: 1}
+  m_Intensity: 1
+  m_Range: 20
+  m_SpotAngle: 90
+  m_InnerSpotAngle: 9
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 0
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1 &8993629984348990719
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,11 +174,35 @@ MonoBehaviour:
     m_ActionId: f467d082-5643-45e8-b217-a99cd4268a65
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 455024791082770364}
+        m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
+        m_MethodName: PlayerOnAtk
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 1374bb37-280c-49f0-8983-8b3491269c44
     m_ActionName: Player/MeleeAttack[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 455024791082770364}
+        m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
+        m_MethodName: PlayerOnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 8eb4c477-d08f-43e5-b60d-edacc27a1493
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
@@ -120,14 +238,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe38c5bd5524faf40a066fb3459c7ce3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  anim: {fileID: 7008686698863382118}
   cc: {fileID: 0}
   cam: {fileID: 0}
   speed: 5
   turnSpeed: 0.1
   gravity: -20
-  jumpSpeed: 15
+  jumpSpeed: 10.5
   moveVelocity: {x: 0, y: 0, z: 0}
+  comboCount: 1
+  comboTimer: 0
+  attacking: 0
+  doAtk: 0
+  atkTimer: 0
 --- !u!143 &1830008949
 CharacterController:
   m_ObjectHideFlags: 0
@@ -142,7 +265,7 @@ CharacterController:
   m_Height: 2.3
   m_Radius: 0.6
   m_SlopeLimit: 45
-  m_StepOffset: 0.75
+  m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.17, z: 0}
@@ -335,7 +458,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8993629986203349790}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -460,11 +583,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
+--- !u!4 &1241719053124360126 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6067901432926371554, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
+  m_PrefabInstance: {fileID: 4976192617733106012}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1661055849251036861 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5909775685279709153, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
   m_PrefabInstance: {fileID: 4976192617733106012}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &7008686698863382118 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2615790635741275962, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
+  m_PrefabInstance: {fileID: 4976192617733106012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7149007530494596081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2754123430094584493, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
+  m_PrefabInstance: {fileID: 4976192617733106012}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1923531408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7149007530494596081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e41a328c22f52f94fb937f3a5bc5bd96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7173409996409353098 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2775324237384129238, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}

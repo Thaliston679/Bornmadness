@@ -189,7 +189,8 @@ MonoBehaviour:
   playerDistance: 0
   bloodParticle: {fileID: 3971424650115529628, guid: 0cbf3699f4b76124ab9809f6ec047a6a, type: 3}
   atkBox: {fileID: 4927944804721905145}
-  hpMax: 50
+  hpMax: 20
+  hp: 0
   listening: 3.5
   vision: {fileID: 336177230504786351}
   persistent: 1
