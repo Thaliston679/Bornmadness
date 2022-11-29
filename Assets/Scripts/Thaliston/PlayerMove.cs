@@ -31,10 +31,15 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float comboTimer = 0;
     public bool attacking = false;
     [SerializeField] bool doAtk = false;
+    [SerializeField] float continuosAtkTimer = 0f;
 
     //Canvas
     //Dano
     [SerializeField] Animator borderDamage;
+    [SerializeField] Animator borderToxic;
+    public GameObject bloodParticle;
+    [SerializeField] bool doDamage = false;
+    public GameObject gameOverPanel;
 
     //Vida
     [SerializeField] float hp;
@@ -53,14 +58,21 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        //Movimentação
-        MoveControl();
+        if(hp > 0)
+        {
+            //Movimentação
+            MoveControl();
 
-        //Pulo
-        JumpControl();
+            //Pulo
+            JumpControl();
 
-        //Ataque
-        AtkControl();
+            //Ataque
+            AtkControl();
+
+            //Dodge
+            DodgeControl();
+        }
+        
 
         //Gravidade
         moveVelocity.y += gravity * Time.deltaTime;
@@ -72,20 +84,6 @@ public class PlayerMove : MonoBehaviour
         //Controlador de animações
         AnimationsControl();
 
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            dodge = true;
-            dodgeTimer = 0.2f;
-        }
-        if (dodge)
-        {
-            if(dodgeTimer >= 0) dodgeTimer -= Time.deltaTime;
-            Dodge();
-        }
-        if(dodgeTimer < 0)
-        {
-            dodge = false;
-        }
     }
 
     void MoveControl()
@@ -103,6 +101,18 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    void DodgeControl()
+    {
+        if (dodge)
+        {
+            if (dodgeTimer >= 0) dodgeTimer -= Time.deltaTime;
+            Dodge();
+        }
+        if (dodgeTimer < 0)
+        {
+            dodge = false;
+        }
+    }
     void Dodge()
     {
         //Dodge
@@ -195,7 +205,25 @@ public class PlayerMove : MonoBehaviour
 
     void EnemyCollision()
     {
+        hp--;
         borderDamage.SetTrigger("Dano");
+        Vector3 randDamagePos = new(Random.Range(transform.position.x + 0.5f, transform.position.x - 0.5f), Random.Range(transform.position.y + 0.5f, transform.position.y - 0.5f), Random.Range(transform.position.z + 0.5f, transform.position.z - 0.5f));
+        Instantiate(bloodParticle, randDamagePos, Quaternion.identity);
+    }
+
+    void EnemyToxic()
+    {
+        if(continuosAtkTimer >= 0 && doDamage)
+        {
+            continuosAtkTimer -= Time.deltaTime;
+        }
+        if(continuosAtkTimer < 0 && doDamage)
+        {
+            continuosAtkTimer = 0.2f;
+            hp--;
+            Vector3 randDamagePos = new(Random.Range(transform.position.x + 0.5f, transform.position.x - 0.5f), Random.Range(transform.position.y + 0.5f, transform.position.y - 0.5f), Random.Range(transform.position.z + 0.5f, transform.position.z - 0.5f));
+            Instantiate(bloodParticle, randDamagePos, Quaternion.identity);
+        }
     }
 
     void AnimationsControl()
@@ -235,6 +263,16 @@ public class PlayerMove : MonoBehaviour
         else
         {
             anim.SetBool("Jump", false);
+        }
+
+        anim.SetBool("Dodge", dodge);
+
+        borderToxic.SetBool("Dano", doDamage);
+
+        if(hp <= 0)
+        {
+            anim.SetTrigger("Death");
+            gameOverPanel.SetActive(true);
         }
     }
 
@@ -281,11 +319,37 @@ public class PlayerMove : MonoBehaviour
             comboTimer = 0.25f;
         }
     }
+
+    public void PlayerOnDodge(InputAction.CallbackContext value)
+    {
+        if (value.started && !dodge && cc.isGrounded)
+        {
+            dodge = true;
+            dodgeTimer = 0.2f;
+        }
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("atkEnemy_hit"))
+        if (other.gameObject.CompareTag("atkEnemy_hit") && hp > 0)
         {
             EnemyCollision();
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("atkEnemy_continuos") && hp > 0)
+        {
+            doDamage = true;
+            EnemyToxic();
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("atkEnemy_continuos") && hp>0)
+        {
+            doDamage = false;
         }
     }
 }

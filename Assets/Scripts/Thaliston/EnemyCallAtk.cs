@@ -19,8 +19,12 @@ public class EnemyCallAtk : MonoBehaviour
 
     public void RangeAtk()
     {
+        Vector3 playerRef = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Vector3 playerCenter = new(playerRef.x, playerRef.y+0.5f, playerRef.z);
         Rigidbody rb = Instantiate(bullet, bulletPoint.position, bulletPoint.rotation).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 48, ForceMode.Impulse);
-        rb.AddForce(transform.up * 2, ForceMode.Impulse);
+        rb.gameObject.transform.LookAt(playerCenter);
+        rb.AddForce(rb.gameObject.transform.forward * 32, ForceMode.Impulse);
+        //rb.AddForce(transform.up * 2, ForceMode.Impulse);
+        Destroy(rb.gameObject, 3f);
     }
 }

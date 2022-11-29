@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 8124669715244967368}
   - component: {fileID: 455024791082770364}
   - component: {fileID: 1830008949}
+  - component: {fileID: 1830008950}
   m_Layer: 7
   m_Name: NewPlayer
   m_TagString: Player
@@ -221,6 +222,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ea91a0d0-84d8-4ff7-8fa4-6d7a41707705
     m_ActionName: Player/Look[/Mouse/delta,/XInputControllerWindows/rightStick]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 455024791082770364}
+        m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
+        m_MethodName: PlayerOnDodge
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7135a0d6-d34f-4c08-9e83-319205751cf5
+    m_ActionName: Player/Dodge[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -246,11 +263,18 @@ MonoBehaviour:
   gravity: -20
   jumpSpeed: 10.5
   moveVelocity: {x: 0, y: 0, z: 0}
-  comboCount: 1
+  comboCount: 0
   comboTimer: 0
   attacking: 0
   doAtk: 0
-  atkTimer: 0
+  continuosAtkTimer: 0
+  borderDamage: {fileID: 0}
+  borderToxic: {fileID: 0}
+  bloodParticle: {fileID: 3971424650115529628, guid: 0cbf3699f4b76124ab9809f6ec047a6a, type: 3}
+  doDamage: 0
+  hp: 0
+  hpMax: 10
+  frontVision: {fileID: 0}
 --- !u!143 &1830008949
 CharacterController:
   m_ObjectHideFlags: 0
@@ -269,6 +293,22 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.17, z: 0}
+--- !u!208 &1830008950
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8993629984348990719}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 1.25, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.1, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &8993629984993066601
 GameObject:
   m_ObjectHideFlags: 0

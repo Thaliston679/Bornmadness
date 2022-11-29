@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1592089143356103423}
   - component: {fileID: 6145129493170960024}
   - component: {fileID: 2724373319993284327}
+  - component: {fileID: -2623206769678496317}
   m_Layer: 0
   m_Name: BulletGoblin
   m_TagString: atkEnemy_hit
@@ -63,6 +64,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.22283632, y: 0.18535936, z: 0.5324658}
   m_Center: {x: -0.023224026, y: -0.003599804, z: 0.15944237}
+--- !u!114 &-2623206769678496317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4882281550302181086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb671f79a8cbe446b6e9bc72a384f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3102380081661770780
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88,19 +101,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f82a8dbe090b3c44f8d3fa19c6ea941a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7010574
+      value: 0.7068645
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f82a8dbe090b3c44f8d3fa19c6ea941a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.09229593
+      value: -0.01850988
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f82a8dbe090b3c44f8d3fa19c6ea941a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7010574
+      value: -0.7068645
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f82a8dbe090b3c44f8d3fa19c6ea941a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.09229593
+      value: 0.01850988
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f82a8dbe090b3c44f8d3fa19c6ea941a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -112,7 +125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f82a8dbe090b3c44f8d3fa19c6ea941a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 15
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -7635826562936255635, guid: f82a8dbe090b3c44f8d3fa19c6ea941a, type: 3}
       propertyPath: m_Materials.Array.data[0]

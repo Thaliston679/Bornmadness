@@ -212,7 +212,8 @@ public class EnemyAI : MonoBehaviour
     {
         if(!defend) hp -= damage;
         if (defend) hp -= (damage / defDamageIgnored);
-        Instantiate(bloodParticle, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity);
+        Vector3 bloodRandPos = new(Random.Range(transform.position.x - 0.5f, transform.position.x + 0.5f), Random.Range(transform.position.y + 1, transform.position.y + 2f), Random.Range(transform.position.z - 0.5f, transform.position.z + 0.5f));
+        Instantiate(bloodParticle, bloodRandPos, Quaternion.identity);
 
         if(hp <= 0)
         {
@@ -222,6 +223,7 @@ public class EnemyAI : MonoBehaviour
             agent.enabled = false;
             this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            if(atkBox != null)atkBox.SetActive(false);
         }
     }
 
@@ -235,7 +237,7 @@ public class EnemyAI : MonoBehaviour
         if (playerDistance <= attackRange*2 && player.GetComponent<PlayerMove>().attacking && !tryDefend && !escaping)
         {
             tryDefend = true;
-            tryDefTimer = 0.5f;
+            tryDefTimer = Random.Range(velAtk - velAtk / 2, velAtk + velAtk / 2);
 
             if (enemyType == 0 && !defend)
             {

@@ -397,9 +397,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3571635168734676889}
+  - component: {fileID: 5626923522724118209}
   m_Layer: 0
   m_Name: Nevoaaaa
-  m_TagString: Untagged
+  m_TagString: atkEnemy_continuos
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -425,6 +426,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5626923522724118209
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4001999176511449547}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 29.953472, y: 11.059472, z: 30.146387}
+  m_Center: {x: -0.08813667, y: -4.600369, z: -0.046235085}
 --- !u!1 &4891107621188935025
 GameObject:
   m_ObjectHideFlags: 0
