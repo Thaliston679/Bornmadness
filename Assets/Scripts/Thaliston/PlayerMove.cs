@@ -50,6 +50,9 @@ public class PlayerMove : MonoBehaviour
     bool dodge = false;
     float dodgeTimer = 0f;
     [SerializeField] GameObject frontVision;
+    bool canDodge;
+    float canDodgeTime;
+    bool dodgeSide;//true = front; false = back;
 
     void Start()
     {
@@ -124,19 +127,34 @@ public class PlayerMove : MonoBehaviour
         {
             dodge = false;
         }
+
+        //Verificador de Dodge
+        if (cc.isGrounded)
+        {
+            canDodge = true;
+            canDodgeTime = 0.15f;
+        }
+        if (canDodge && !cc.isGrounded)
+        {
+            canDodgeTime -= Time.deltaTime;
+        }
+        if (canDodgeTime <= 0 && !cc.isGrounded)
+        {
+            canDodge = false;
+        }
     }
     void Dodge()
     {
         float dodgeOrRoll;
-        if (movement.y > 0) dodgeOrRoll = 3.5f;
-        else dodgeOrRoll = -3.5f;
+        if (dodgeSide) dodgeOrRoll = 2f;
+        else dodgeOrRoll = -2f;
 
         GameObject dodgeOrRollVision;
-        if (movement.y > 0) dodgeOrRollVision = cam.gameObject;
+        if (dodgeSide) dodgeOrRollVision = cam.gameObject;
         else dodgeOrRollVision = frontVision;
 
         GameObject dodgeOrRollDirection;
-        if (movement.y > 0) dodgeOrRollDirection = gameObject;
+        if (dodgeSide) dodgeOrRollDirection = gameObject;
         else dodgeOrRollDirection = cam.gameObject;
 
         //Dodge
@@ -295,7 +313,7 @@ public class PlayerMove : MonoBehaviour
         anim.SetBool("Dodge", dodge);
         if (dodge)
         {
-            if (movement.y > 0) anim.SetBool("Roll", dodge);
+            if (dodgeSide) anim.SetBool("Roll", dodge);
             else anim.SetBool("Roll", !dodge);
         }
         else
@@ -360,8 +378,10 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerOnDodge(InputAction.CallbackContext value)
     {
-        if (value.started && !dodge && cc.isGrounded)
+        if (value.started && canDodge)
         {
+            if (movement.y > 0) dodgeSide = true;
+            else dodgeSide = false;
             dodge = true;
             dodgeTimer = 0.3f;
         }

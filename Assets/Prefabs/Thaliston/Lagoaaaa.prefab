@@ -398,6 +398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3571635168734676889}
   - component: {fileID: 5626923522724118209}
+  - component: {fileID: 7493059884320203648}
   m_Layer: 0
   m_Name: Lagoaaaa
   m_TagString: atkEnemy_continuos
@@ -414,7 +415,7 @@ Transform:
   m_GameObject: {fileID: 4001999176511449547}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 31.20388, y: 11.05719, z: -11.556112}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3022059595813538904}
@@ -439,6 +440,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 29.953472, y: 11.059472, z: 30.146387}
   m_Center: {x: -0.08813667, y: -4.600369, z: -0.046235085}
+--- !u!95 &7493059884320203648
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4001999176511449547}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7eab95a798415b14f8c84e47dc8004c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4891107621188935025
 GameObject:
   m_ObjectHideFlags: 0
