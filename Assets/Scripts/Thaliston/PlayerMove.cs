@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
@@ -44,6 +45,7 @@ public class PlayerMove : MonoBehaviour
     //Vida
     [SerializeField] float hp;
     [SerializeField] float hpMax = 10;
+    public Slider hpBarSlider;
 
     bool dodge = false;
     float dodgeTimer = 0f;
@@ -84,6 +86,16 @@ public class PlayerMove : MonoBehaviour
         //Controlador de animações
         AnimationsControl();
 
+        PlayerBarHP();
+    }
+
+    void PlayerBarHP()
+    {
+        hpBarSlider.value = GetHP();
+    }
+    public float GetHP()
+    {
+        return hp;
     }
 
     void MoveControl()
@@ -115,22 +127,32 @@ public class PlayerMove : MonoBehaviour
     }
     void Dodge()
     {
-        //Dodge
-        Vector3 dodgeDirection = new Vector3(0f, 0f, -3.5f);
+        float dodgeOrRoll;
+        if (movement.y > 0) dodgeOrRoll = 3.5f;
+        else dodgeOrRoll = -3.5f;
 
-        float targetAngle = Mathf.Atan2(dodgeDirection.x, dodgeDirection.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+        GameObject dodgeOrRollVision;
+        if (movement.y > 0) dodgeOrRollVision = cam.gameObject;
+        else dodgeOrRollVision = frontVision;
+
+        GameObject dodgeOrRollDirection;
+        if (movement.y > 0) dodgeOrRollDirection = gameObject;
+        else dodgeOrRollDirection = cam.gameObject;
+
+        //Dodge
+
+        Vector3 dodgeDirection = new Vector3(0f, 0f, dodgeOrRoll);
+
+        float targetAngle = Mathf.Atan2(dodgeDirection.x, dodgeDirection.z) * Mathf.Rad2Deg + dodgeOrRollDirection.transform.eulerAngles.y;
         Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
         cc.Move(moveDir * (speed*3) * Time.deltaTime);
 
         //Rotacionar
-        float targetBackAngle = Mathf.Atan2(dodgeDirection.x, dodgeDirection.z) * Mathf.Rad2Deg + frontVision.transform.eulerAngles.y;
+        
+        float targetBackAngle = Mathf.Atan2(dodgeDirection.x, dodgeDirection.z) * Mathf.Rad2Deg + dodgeOrRollVision.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetBackAngle, ref turnVelocity, 0.05f);
         transform.rotation = Quaternion.Euler(0f, angle, 0f);
-    }
-    void DodgeTimer()
-    {
-
     }
 
     void JumpControl()
@@ -228,6 +250,7 @@ public class PlayerMove : MonoBehaviour
 
     void AnimationsControl()
     {
+        //Walk/Idle
         if (cc.isGrounded)
         {
             if(Mathf.Abs(movement.x) >= 0.5f || Mathf.Abs(movement.y) >= 0.5f)
@@ -247,6 +270,8 @@ public class PlayerMove : MonoBehaviour
             anim.SetBool("Idle", false);
         }
 
+
+        //Fall
         if (cc.velocity.y <= -10f)
         {
             anim.SetBool("Fall", true);
@@ -256,6 +281,7 @@ public class PlayerMove : MonoBehaviour
             anim.SetBool("Fall", false);
         }
 
+        //Jump
         if (cc.velocity.y >= 1f)
         {
             anim.SetBool("Jump", true);
@@ -265,10 +291,22 @@ public class PlayerMove : MonoBehaviour
             anim.SetBool("Jump", false);
         }
 
+        //Dodge
         anim.SetBool("Dodge", dodge);
+        if (dodge)
+        {
+            if (movement.y > 0) anim.SetBool("Roll", dodge);
+            else anim.SetBool("Roll", !dodge);
+        }
+        else
+        {
+            anim.SetBool("Roll", dodge);
+        }
 
+        //Damage
         borderToxic.SetBool("Dano", doDamage);
 
+        //Death
         if(hp <= 0)
         {
             anim.SetTrigger("Death");
@@ -325,7 +363,7 @@ public class PlayerMove : MonoBehaviour
         if (value.started && !dodge && cc.isGrounded)
         {
             dodge = true;
-            dodgeTimer = 0.2f;
+            dodgeTimer = 0.3f;
         }
     }
 

@@ -64,9 +64,9 @@
                     "type": "PassThrough",
                     "id": "ea91a0d0-84d8-4ff7-8fa4-6d7a41707705",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "NormalizeVector2",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Dodge",

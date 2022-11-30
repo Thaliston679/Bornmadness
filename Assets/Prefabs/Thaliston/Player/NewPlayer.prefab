@@ -272,8 +272,10 @@ MonoBehaviour:
   borderToxic: {fileID: 0}
   bloodParticle: {fileID: 3971424650115529628, guid: 0cbf3699f4b76124ab9809f6ec047a6a, type: 3}
   doDamage: 0
+  gameOverPanel: {fileID: 0}
   hp: 0
   hpMax: 10
+  hpBarSlider: {fileID: 0}
   frontVision: {fileID: 0}
 --- !u!143 &1830008949
 CharacterController:
@@ -292,7 +294,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.17, z: 0}
+  m_Center: {x: 0, y: 0.15, z: 0}
 --- !u!208 &1830008950
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -575,7 +577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5909775685279709153, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.967
+      value: -0.998
       objectReference: {fileID: 0}
     - target: {fileID: 5909775685279709153, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
       propertyPath: m_LocalPosition.z

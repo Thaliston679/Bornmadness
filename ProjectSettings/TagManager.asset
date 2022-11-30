@@ -13,6 +13,8 @@ TagManager:
   - atkEnemy_continuos
   - Wall
   - Ground
+  - trap
+  - carrinhoF
   layers:
   - Default
   - TransparentFX
