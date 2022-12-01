@@ -42,6 +42,8 @@ public class PlayerMove : MonoBehaviour
     public GameObject bloodParticle;
     [SerializeField] bool doDamage = false;
     public GameObject gameOverPanel;
+    bool toxic = false;
+    bool spike = false;
 
     //Vida
     [SerializeField] float hp;
@@ -54,6 +56,7 @@ public class PlayerMove : MonoBehaviour
     bool canDodge;
     float canDodgeTime;
     bool dodgeSide;//true = front; false = back;
+    [SerializeField] float dodgeSpeed;
 
     //FPS
     [SerializeField]TextMeshProUGUI fpsCont;
@@ -155,9 +158,11 @@ public class PlayerMove : MonoBehaviour
     }
     void Dodge()
     {
+        dodgeSpeed -= Time.deltaTime * 6;
+
         float dodgeOrRoll;
-        if (dodgeSide) dodgeOrRoll = 2f;
-        else dodgeOrRoll = -2f;
+        if (dodgeSide) dodgeOrRoll = dodgeSpeed;
+        else dodgeOrRoll = -dodgeSpeed;
 
         GameObject dodgeOrRollVision;
         if (dodgeSide) dodgeOrRollVision = cam.gameObject;
@@ -261,7 +266,7 @@ public class PlayerMove : MonoBehaviour
         Instantiate(bloodParticle, randDamagePos, Quaternion.identity);
     }
 
-    void EnemyToxic()
+    void EnemyContinuosDamage()
     {
         if(continuosAtkTimer >= 0 && doDamage)
         {
@@ -271,6 +276,7 @@ public class PlayerMove : MonoBehaviour
         {
             continuosAtkTimer = 0.2f;
             hp--;
+            if(spike)borderDamage.SetTrigger("Dano");
             Vector3 randDamagePos = new(Random.Range(transform.position.x + 0.5f, transform.position.x - 0.5f), Random.Range(transform.position.y + 0.5f, transform.position.y - 0.5f), Random.Range(transform.position.z + 0.5f, transform.position.z - 0.5f));
             Instantiate(bloodParticle, randDamagePos, Quaternion.identity);
         }
@@ -332,7 +338,8 @@ public class PlayerMove : MonoBehaviour
         }
 
         //Damage
-        borderToxic.SetBool("Dano", doDamage);
+        borderToxic.SetBool("Dano", toxic);
+
 
         //Death
         if(hp <= 0)
@@ -394,6 +401,7 @@ public class PlayerMove : MonoBehaviour
             else dodgeSide = false;
             dodge = true;
             dodgeTimer = 0.3f;
+            dodgeSpeed = 2;
         }
     }
 
@@ -409,8 +417,16 @@ public class PlayerMove : MonoBehaviour
     {
         if (other.gameObject.CompareTag("atkEnemy_continuos") && hp > 0)
         {
+            EnemyContinuosDamage();
             doDamage = true;
-            EnemyToxic();
+            if (other.gameObject.transform.root.CompareTag("atkEnemy_continuos"))//Nevoa
+            {
+                toxic = true;
+            }
+            if (other.gameObject.transform.root.CompareTag("trap"))//Espinhos
+            {
+                spike = true;
+            }
         }
     }
     private void OnTriggerExit(Collider other)
@@ -418,6 +434,8 @@ public class PlayerMove : MonoBehaviour
         if (other.gameObject.CompareTag("atkEnemy_continuos") && hp>0)
         {
             doDamage = false;
+            toxic = false;
+            spike = false;
         }
     }
 }
