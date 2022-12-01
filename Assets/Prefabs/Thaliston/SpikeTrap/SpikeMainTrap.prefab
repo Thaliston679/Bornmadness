@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1032253051139979826}
   - component: {fileID: 2688052872107270361}
   - component: {fileID: 1236466945214453471}
+  - component: {fileID: 1624384977810853447}
   m_Layer: 0
   m_Name: SpikeMainTrap
   m_TagString: trap
@@ -67,6 +68,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9, y: 5, z: 9}
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!114 &1624384977810853447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5766267088397299538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c421266936bc446b9b87fa5246373f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
+  activeTime: 2
+  activeCurrentTime: 0
+  desactiveTime: 3
+  desactiveCurrentTime: 0
+  canActive: 1
 --- !u!1001 &9136872086893625515
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77,6 +96,10 @@ PrefabInstance:
     - target: {fileID: 4865767637333568617, guid: 47c2e9ae34c35bf4f812efc6d0dd3bd2, type: 3}
       propertyPath: m_Name
       value: SpikeTrap
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997237178244040480, guid: 47c2e9ae34c35bf4f812efc6d0dd3bd2, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5444772270377612672, guid: 47c2e9ae34c35bf4f812efc6d0dd3bd2, type: 3}
       propertyPath: m_RootOrder

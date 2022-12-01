@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -54,12 +55,21 @@ public class PlayerMove : MonoBehaviour
     float canDodgeTime;
     bool dodgeSide;//true = front; false = back;
 
+    //FPS
+    [SerializeField]TextMeshProUGUI fpsCont;
+
     void Start()
     {
         hp = hpMax;
         cc = GetComponent<CharacterController>();
+        hpBarSlider.maxValue = hpMax;
+        InvokeRepeating(nameof(ContadorFPS), 0, .5f);
     }
 
+    void ContadorFPS()
+    {
+        fpsCont.text = $"FPS: {(int)(1/Time.deltaTime)}";
+    }
 
     private void Update()
     {
@@ -159,7 +169,7 @@ public class PlayerMove : MonoBehaviour
 
         //Dodge
 
-        Vector3 dodgeDirection = new Vector3(0f, 0f, dodgeOrRoll);
+        Vector3 dodgeDirection = new Vector3(movement.x, 0f, dodgeOrRoll);
 
         float targetAngle = Mathf.Atan2(dodgeDirection.x, dodgeDirection.z) * Mathf.Rad2Deg + dodgeOrRollDirection.transform.eulerAngles.y;
         Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
