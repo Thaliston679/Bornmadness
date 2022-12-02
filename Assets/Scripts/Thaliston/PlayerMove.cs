@@ -61,6 +61,12 @@ public class PlayerMove : MonoBehaviour
     //FPS
     [SerializeField]TextMeshProUGUI fpsCont;
 
+    //Descanso
+    public GameObject descansoPanel;
+    [SerializeField] bool inDescanso;
+    [SerializeField]bool inDescansoArea;
+    GameObject descansoObj;
+
     void Start()
     {
         hp = hpMax;
@@ -76,7 +82,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        if(hp > 0)
+        if(hp > 0 && !inDescanso)
         {
             //Movimentação
             MoveControl();
@@ -282,6 +288,11 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    public void GetNewXp(float xpValue)
+    {
+        
+    }
+
     void AnimationsControl()
     {
         //Walk/Idle
@@ -351,7 +362,7 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerOnMove(InputAction.CallbackContext value)
     {
-        movement = value.ReadValue<Vector2>();
+        if(!inDescanso) movement = value.ReadValue<Vector2>();
     }
 
     public void PlayerOnJump(InputAction.CallbackContext value)
@@ -386,22 +397,50 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerOnAtk(InputAction.CallbackContext value)
     {
-        if (value.started)
+        //Atacar
+        if (value.started && !inDescanso)
         {
             doAtk = true;
             comboTimer = 0.25f;
         }
+
+        //Descansar
+        if(value.started && inDescansoArea)
+        {
+            anim.SetBool("Resting", true);
+            descansoPanel.SetActive(false);
+            inDescanso = true;
+            //gameObject.transform.parent = descansoObj.transform;
+            //transform.localPosition = new Vector3(0, 0, 0);
+            transform.SetParent(descansoObj.transform);
+            Invoke(nameof(PositionDescanso), 0.01f);
+        }
+    }
+
+    void PositionDescanso()
+    {
+
+        transform.localPosition = new(1.22f, 1.3f, -1.31f);
+        transform.rotation = Quaternion.identity;
     }
 
     public void PlayerOnDodge(InputAction.CallbackContext value)
     {
-        if (value.started && canDodge)
+        if (value.started && canDodge && !inDescanso)
         {
             if (movement.y > 0) dodgeSide = true;
             else dodgeSide = false;
             dodge = true;
             dodgeTimer = 0.3f;
             dodgeSpeed = 2;
+        }
+
+        if(value.started && inDescansoArea)
+        {
+            gameObject.transform.parent = null;
+            anim.SetBool("Resting", false);
+            inDescanso = false;
+            if (inDescansoArea) descansoPanel.SetActive(true);
         }
     }
 
@@ -411,6 +450,13 @@ public class PlayerMove : MonoBehaviour
         if (other.gameObject.CompareTag("atkEnemy_hit") && hp > 0)
         {
             EnemyCollision();
+        }
+
+        if (other.gameObject.CompareTag("checkpoint") && hp > 0)
+        {
+            descansoObj = other.gameObject;
+            inDescansoArea = true;
+            descansoPanel.SetActive(true);
         }
     }
     private void OnTriggerStay(Collider other)
@@ -436,6 +482,12 @@ public class PlayerMove : MonoBehaviour
             doDamage = false;
             toxic = false;
             spike = false;
+        }
+
+        if (other.gameObject.CompareTag("checkpoint"))
+        {
+            descansoPanel.SetActive(false);
+            inDescansoArea = false;
         }
     }
 }

@@ -277,6 +277,11 @@ MonoBehaviour:
   hpMax: 10
   hpBarSlider: {fileID: 0}
   frontVision: {fileID: 0}
+  dodgeSpeed: 0
+  fpsCont: {fileID: 0}
+  descansoPanel: {fileID: 0}
+  inDescanso: 0
+  inDescansoArea: 0
 --- !u!143 &1830008949
 CharacterController:
   m_ObjectHideFlags: 0
@@ -294,7 +299,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.15, z: 0}
+  m_Center: {x: 0, y: 0.04, z: 0}
 --- !u!208 &1830008950
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -577,7 +582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5909775685279709153, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.998
+      value: -1.18
       objectReference: {fileID: 0}
     - target: {fileID: 5909775685279709153, guid: 0ea6879a19f851b4383e32c77c3cfd6a, type: 3}
       propertyPath: m_LocalPosition.z

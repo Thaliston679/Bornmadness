@@ -279,17 +279,6 @@
                 },
                 {
                     "name": "",
-                    "id": "24ab32e3-5c69-43fa-ba12-b22bc4a42598",
-                    "path": "<Touchscreen>/delta",
-                    "interactions": "",
-                    "processors": "NormalizeVector2",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "315bff8f-317b-4c21-b14e-0223afa6188b",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
