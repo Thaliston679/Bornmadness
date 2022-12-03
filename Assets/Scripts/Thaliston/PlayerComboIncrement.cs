@@ -15,4 +15,14 @@ public class PlayerComboIncrement : MonoBehaviour
     {
         animator.GetComponentInParent<PlayerMove>().attacking = false;
     }
+
+    void AddHP()
+    {
+        GetComponentInParent<PlayerMove>().AddHP();
+    }
+
+    void EndHeal()
+    {
+        GetComponentInParent<PlayerMove>().EndHeal();
+    }
 }
