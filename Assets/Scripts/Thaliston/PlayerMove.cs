@@ -42,8 +42,8 @@ public class PlayerMove : MonoBehaviour
     public GameObject bloodParticle;
     [SerializeField] bool doDamage = false;
     public GameObject gameOverPanel;
-    bool toxic = false;
-    bool spike = false;
+    [SerializeField] bool toxic = false;
+    [SerializeField] bool spike = false;
 
     //Vida
     [SerializeField] float hp;
@@ -64,8 +64,11 @@ public class PlayerMove : MonoBehaviour
     //Descanso
     public GameObject descansoPanel;
     [SerializeField] bool inDescanso;
-    [SerializeField]bool inDescansoArea;
+    [SerializeField] bool inDescansoArea;
     GameObject descansoObj;
+
+    //Recuperar HP
+    [SerializeField] bool healing;
 
     void Start()
     {
@@ -164,7 +167,8 @@ public class PlayerMove : MonoBehaviour
     }
     void Dodge()
     {
-        dodgeSpeed -= Time.deltaTime * 6;
+        if (dodgeSide) dodgeSpeed -= Time.deltaTime*0.5f;
+        else dodgeSpeed -= Time.deltaTime * 6;
 
         float dodgeOrRoll;
         if (dodgeSide) dodgeOrRoll = dodgeSpeed;
@@ -358,11 +362,15 @@ public class PlayerMove : MonoBehaviour
             anim.SetTrigger("Death");
             gameOverPanel.SetActive(true);
         }
+
+        //Healing
+        anim.SetBool("Healing", healing);
     }
 
     public void PlayerOnMove(InputAction.CallbackContext value)
     {
         if(!inDescanso) movement = value.ReadValue<Vector2>();
+        if (movement != Vector2.zero) healing = false;
     }
 
     public void PlayerOnJump(InputAction.CallbackContext value)
@@ -371,6 +379,7 @@ public class PlayerMove : MonoBehaviour
         {
             doJump = true;
             jumpTimer = 0.2f;
+            healing = false;
         }
     }
     void JumpTimer()
@@ -387,7 +396,10 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerOnHeal(InputAction.CallbackContext value)
     {
-
+        if (value.started && !healing)
+        {
+            healing = true;
+        }
     }
 
     public void PlayerOnTNT(InputAction.CallbackContext value)
@@ -402,6 +414,7 @@ public class PlayerMove : MonoBehaviour
         {
             doAtk = true;
             comboTimer = 0.25f;
+            healing = false;
         }
 
         //Descansar
@@ -414,6 +427,8 @@ public class PlayerMove : MonoBehaviour
             //transform.localPosition = new Vector3(0, 0, 0);
             transform.SetParent(descansoObj.transform);
             Invoke(nameof(PositionDescanso), 0.01f);
+            healing = false;
+            hp = hpMax;
         }
     }
 
@@ -426,13 +441,22 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerOnDodge(InputAction.CallbackContext value)
     {
-        if (value.started && canDodge && !inDescanso)
+        if (value.started && canDodge && !inDescanso && !dodge)
         {
-            if (movement.y > 0) dodgeSide = true;
-            else dodgeSide = false;
+            if (movement.y > 0)
+            {
+                dodgeSide = true;
+                dodgeTimer = 0.45f;
+                dodgeSpeed = 1.5f;
+            }
+            else
+            {
+                dodgeSide = false;
+                dodgeTimer = 0.35f;
+                dodgeSpeed = 2.25f;
+            }
             dodge = true;
-            dodgeTimer = 0.3f;
-            dodgeSpeed = 2;
+            healing = false;
         }
 
         if(value.started && inDescansoArea)
@@ -441,9 +465,20 @@ public class PlayerMove : MonoBehaviour
             anim.SetBool("Resting", false);
             inDescanso = false;
             if (inDescansoArea) descansoPanel.SetActive(true);
+            healing = false;
         }
     }
 
+    public void AddHP()
+    {
+        Debug.Log("Recuperou HP");
+        hp += 10;
+        if (hp > hpMax) hp = hpMax;
+    }
+    public void EndHeal()
+    {
+        healing = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -465,14 +500,15 @@ public class PlayerMove : MonoBehaviour
         {
             EnemyContinuosDamage();
             doDamage = true;
-            if (other.gameObject.transform.root.CompareTag("atkEnemy_continuos"))//Nevoa
-            {
-                toxic = true;
-            }
-            if (other.gameObject.transform.root.CompareTag("trap"))//Espinhos
+            if (other.gameObject.transform.parent.CompareTag("trap"))//Espinhos
             {
                 spike = true;
             }
+            if (other.gameObject.transform.CompareTag("atkEnemy_continuos") && !spike)//Nevoa
+            {
+                toxic = true;
+            }
+            
         }
     }
     private void OnTriggerExit(Collider other)
