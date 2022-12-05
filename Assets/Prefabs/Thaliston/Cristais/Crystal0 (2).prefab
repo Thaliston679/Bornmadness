@@ -106,7 +106,7 @@ GameObject:
   m_Layer: 0
   m_Name: Crystal0 (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -417,21 +417,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cb349461edfa8c545b66aa6495cf5c46, type: 3}
   m_PrefabInstance: {fileID: 4364273478066294220}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &304220935420275915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3481399382828511389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bd0e3e801c7fc4e8704aaae3b57c2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xp: 7
-  cristalDrop: {fileID: 3971424650115529628, guid: 5b81f1da73974f54d9f8dfaf6bb183bb, type: 3}
-  localDrop: {fileID: 5550678433129966797}
 --- !u!54 &4671228118257568995
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -461,6 +446,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &304220935420275915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3481399382828511389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70bd0e3e801c7fc4e8704aaae3b57c2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xp: 7
+  cristalDrop: {fileID: 3971424650115529628, guid: 5b81f1da73974f54d9f8dfaf6bb183bb, type: 3}
+  localDrop: {fileID: 5550678433129966797}
 --- !u!4 &4259203376131189287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cb349461edfa8c545b66aa6495cf5c46, type: 3}
