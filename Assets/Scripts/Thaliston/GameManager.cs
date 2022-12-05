@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,10 +10,31 @@ public class GameManager : MonoBehaviour
     public int slotSave;
     [SerializeField] SaveLoad saveLoad;
 
+    public GameObject mainCrystals;
+    public GameObject mainEnemies;
+    public int crystalsTotal;
+    public int enemiesTotal;
+    public int crystalsCurrent;
+    public int enemiesCurrent;
+
+    public TextMeshProUGUI cristaisC;
+    public TextMeshProUGUI enemiesC;
+
     void Start()
     {
         SaveG(slotSave);
         LoadG(slotSave);
+        enemiesTotal = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        crystalsTotal = GameObject.FindGameObjectsWithTag("cristal").Length;
+        Debug.Log(enemiesTotal);
+        Debug.Log(crystalsTotal);
+        UpdateEnemCris();
+    }
+
+    public void UpdateEnemCris()
+    {
+        cristaisC.text = $"Cristais: {crystalsCurrent} / {crystalsTotal}";
+        enemiesC.text = $"Inimigos derrotados: {enemiesCurrent} / {enemiesTotal}";
     }
 
     public void SaveG(int slot)

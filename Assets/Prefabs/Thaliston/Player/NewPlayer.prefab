@@ -103,6 +103,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8993629984348990718}
+  - component: {fileID: 5336006897670033468}
+  - component: {fileID: 2719903103763557879}
   - component: {fileID: 8124669715244967368}
   - component: {fileID: 455024791082770364}
   - component: {fileID: 1830008949}
@@ -133,6 +135,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5336006897670033468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8993629984348990719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3860eba85ac9764b9f3d06351239e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2719903103763557879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8993629984348990719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262abfd2cb1394c409034bfb7dc3aa8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotSave: 0
+  saveLoad: {fileID: 5336006897670033468}
+  mainCrystals: {fileID: 0}
+  mainEnemies: {fileID: 0}
+  crystalsTotal: 0
+  enemiesTotal: 0
+  crystalsCurrent: 0
+  enemiesCurrent: 0
 --- !u!114 &8124669715244967368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,6 +318,7 @@ MonoBehaviour:
   descansoPanel: {fileID: 0}
   inDescanso: 0
   inDescansoArea: 0
+  healing: 0
 --- !u!143 &1830008949
 CharacterController:
   m_ObjectHideFlags: 0

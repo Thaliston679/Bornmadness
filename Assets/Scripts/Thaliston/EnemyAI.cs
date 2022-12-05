@@ -224,6 +224,8 @@ public class EnemyAI : MonoBehaviour
             this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
             if(atkBox != null)atkBox.SetActive(false);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<GameManager>().enemiesCurrent++;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<GameManager>().UpdateEnemCris();
         }
     }
 

@@ -15,6 +15,8 @@ public class Cristal : MonoBehaviour
             other.GetComponentInParent<PlayerMove>().GetNewXp(xp);
             GameObject drop = Instantiate(cristalDrop, localDrop.position, Quaternion.identity);
             drop.GetComponent<ParticleSystemRenderer>().material = GetComponentInChildren<MeshRenderer>().material;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<GameManager>().crystalsCurrent++;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<GameManager>().UpdateEnemCris();
             Destroy(this.gameObject, 0.1f);
         }
     }
