@@ -160,13 +160,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotSave: 0
-  saveLoad: {fileID: 5336006897670033468}
+  saveLoad: {fileID: 0}
   mainCrystals: {fileID: 0}
   mainEnemies: {fileID: 0}
   crystalsTotal: 0
   enemiesTotal: 0
   crystalsCurrent: 0
   enemiesCurrent: 0
+  cristaisC: {fileID: 0}
+  enemiesC: {fileID: 0}
 --- !u!114 &8124669715244967368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,7 +251,19 @@ MonoBehaviour:
     m_ActionId: 474f1e9c-482b-4c7c-9feb-8897921f3533
     m_ActionName: Player/TNTAttack[/Mouse/rightButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 455024791082770364}
+        m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
+        m_MethodName: PlayerOnHeal
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c6fbe19c-c674-4daa-8f45-f891ec0d647d
     m_ActionName: Player/Heal[/Keyboard/f]
   - m_PersistentCalls:
@@ -294,8 +308,8 @@ MonoBehaviour:
   cam: {fileID: 0}
   speed: 5
   turnSpeed: 0.1
-  gravity: -20
-  jumpSpeed: 10.5
+  gravity: -22
+  jumpSpeed: 12
   moveVelocity: {x: 0, y: 0, z: 0}
   comboCount: 0
   comboTimer: 0
@@ -310,7 +324,7 @@ MonoBehaviour:
   toxic: 0
   spike: 0
   hp: 0
-  hpMax: 10
+  hpMax: 100
   hpBarSlider: {fileID: 0}
   frontVision: {fileID: 0}
   dodgeSpeed: 0
@@ -319,6 +333,9 @@ MonoBehaviour:
   inDescanso: 0
   inDescansoArea: 0
   healing: 0
+  nextLevelPanel: {fileID: 0}
+  inNextLevelArea: 0
+  nextLevelPanelDelete: {fileID: 0}
 --- !u!143 &1830008949
 CharacterController:
   m_ObjectHideFlags: 0
@@ -331,7 +348,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 2.3
-  m_Radius: 0.6
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08

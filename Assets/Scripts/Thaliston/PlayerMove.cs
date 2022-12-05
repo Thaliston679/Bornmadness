@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
+using Cinemachine;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -69,6 +70,15 @@ public class PlayerMove : MonoBehaviour
 
     //Recuperar HP
     [SerializeField] bool healing;
+
+    //Next Level
+    public GameObject nextLevelPanel;
+    [SerializeField] bool inNextLevelArea;
+    GameObject nextLevelObj;
+    public GameObject nextLevelPanelDelete;
+
+    //Cameras Switch
+    public GameObject[] cams;
 
     void Start()
     {
@@ -430,11 +440,17 @@ public class PlayerMove : MonoBehaviour
             healing = false;
             hp = hpMax;
         }
+
+        //Prosseguir para próxima fase
+        if(value.started && inNextLevelArea)
+        {
+            nextLevelPanelDelete.SetActive(true);
+            cc.enabled = false;        
+        }
     }
 
     void PositionDescanso()
     {
-
         transform.localPosition = new(1.22f, 1.3f, -1.31f);
         transform.rotation = Quaternion.identity;
     }
@@ -493,7 +509,21 @@ public class PlayerMove : MonoBehaviour
             inDescansoArea = true;
             descansoPanel.SetActive(true);
         }
+
+        if (other.gameObject.CompareTag("nextLevel") && hp > 0)
+        {
+            inNextLevelArea = other.gameObject;
+            inNextLevelArea = true;
+            nextLevelPanel.SetActive(true);
+        }
+
+        if (other.gameObject.CompareTag("cam") && hp > 0)
+        {
+            cams[0].SetActive(false);
+            cams[1].SetActive(true);
+        }
     }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("atkEnemy_continuos") && hp > 0)
@@ -524,6 +554,18 @@ public class PlayerMove : MonoBehaviour
         {
             descansoPanel.SetActive(false);
             inDescansoArea = false;
+        }
+
+        if (other.gameObject.CompareTag("nextLevel"))
+        {
+            nextLevelPanel.SetActive(false);
+            inNextLevelArea = false;
+        }
+
+        if (other.gameObject.CompareTag("cam") && hp > 0)
+        {
+            cams[0].SetActive(true);
+            cams[1].SetActive(false);
         }
     }
 }

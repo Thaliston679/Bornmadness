@@ -17,6 +17,8 @@ TagManager:
   - carrinhoF
   - checkpoint
   - cristal
+  - nextLevel
+  - cam
   layers:
   - Default
   - TransparentFX
