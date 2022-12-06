@@ -5,6 +5,8 @@ using UnityEngine;
 public class CristalActivation : MonoBehaviour
 {
     public GameObject cristal;
+    public bool cristalVisivel;
+
     private void Start()
     {
         Invoke(nameof(DesactiveCristals),0.1f);
@@ -12,14 +14,15 @@ public class CristalActivation : MonoBehaviour
 
     void DesactiveCristals()
     {
-        cristal.SetActive(false);
+        if(!cristalVisivel) cristal.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if(cristal != null) cristal.SetActive(true);
+            cristalVisivel = true;
+            if (cristal != null) cristal.SetActive(true);
         }
     }
 
@@ -27,6 +30,7 @@ public class CristalActivation : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            cristalVisivel = false;
             if (cristal != null) cristal.SetActive(false);
         }
     }

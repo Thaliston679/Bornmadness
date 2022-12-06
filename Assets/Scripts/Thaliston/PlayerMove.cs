@@ -462,8 +462,10 @@ public class PlayerMove : MonoBehaviour
             if (movement.y > 0)
             {
                 dodgeSide = true;
-                dodgeTimer = 0.45f;
-                dodgeSpeed = 1.5f;
+                /*dodgeTimer = 0.45f;
+                dodgeSpeed = 1.5f;*/
+                dodgeTimer = 0.35f;
+                dodgeSpeed = 2.25f;
             }
             else
             {
