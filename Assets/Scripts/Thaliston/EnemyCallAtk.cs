@@ -7,6 +7,9 @@ public class EnemyCallAtk : MonoBehaviour
     public GameObject bullet;
     public Transform bulletPoint;
     public GameObject atkBox;
+
+    [SerializeField]SoundsManagerEnemy enemySounds;
+
     public void MeleeAtkActive()
     {
         atkBox.SetActive(true);
@@ -26,5 +29,48 @@ public class EnemyCallAtk : MonoBehaviour
         rb.AddForce(rb.gameObject.transform.forward * 32, ForceMode.Impulse);
         //rb.AddForce(transform.up * 2, ForceMode.Impulse);
         Destroy(rb.gameObject, 3f);
+    }
+
+    //SoundsManager
+
+
+    public void OgroWalk()
+    {
+        enemySounds.OgroWalk();
+    }
+
+    public void GoblinWalk()
+    {
+        enemySounds.GoblinWalk();
+    }
+
+    public void Clava()
+    {
+        enemySounds.Clava();
+    }
+
+    public void Faca()
+    {
+        enemySounds.Faca();
+    }
+
+    public void GoblindDamage()
+    {
+        enemySounds.GoblindDamage();
+    }
+
+    public void OgroDamage()
+    {
+        enemySounds.OgroDamage();
+    }
+
+    public void GoblinDeath()
+    {
+        enemySounds.GoblinDeath();
+    }
+
+    public void Zarabatana()
+    {
+        enemySounds.Zarabatana();
     }
 }

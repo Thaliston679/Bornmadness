@@ -55,6 +55,7 @@ public class EnemyAI : MonoBehaviour
     public float attackRange;//Alcance do ataque
     public float damage;//Dano do inimigo
     private bool escaping = false;//Faz o inimigo fugir com pouco HP
+    [SerializeField] private int enemyID;
     private void Awake()
     {
         velEnemy = velPatrol;
@@ -210,12 +211,18 @@ public class EnemyAI : MonoBehaviour
 
     public void TakeDamage(int damage)//Recebe dano de algum objeto externo
     {
-        if(!defend) hp -= damage;
+        if (!defend) hp -= damage;
         if (defend) hp -= (damage / defDamageIgnored);
         Vector3 bloodRandPos = new(Random.Range(transform.position.x - 0.5f, transform.position.x + 0.5f), Random.Range(transform.position.y + 1, transform.position.y + 2f), Random.Range(transform.position.z - 0.5f, transform.position.z + 0.5f));
         Instantiate(bloodParticle, bloodRandPos, Quaternion.identity);
 
-        if(hp <= 0)
+        if (hp > 0)
+        {
+            if (enemyID >= 0 && enemyID < 2) GetComponent<SoundsManagerEnemy>().GoblindDamage();
+            if (enemyID == 2) GetComponent<SoundsManagerEnemy>().OgroDamage();
+        }
+
+        if (hp <= 0)
         {
             anim.SetBool("Die", true);
             //Invoke(nameof(DestroyEnemy), 0.5f);

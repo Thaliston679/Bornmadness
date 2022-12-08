@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -77,8 +78,17 @@ public class PlayerMove : MonoBehaviour
     GameObject nextLevelObj;
     public GameObject nextLevelPanelDelete;
 
+    //Back Level
+    public GameObject backLevelPanel;
+    [SerializeField] bool inBackLevelArea;
+    GameObject backLevelObj;
+    public GameObject backLevelPanelDelete;
+
     //Cameras Switch
     public GameObject[] cams;
+
+    //Cena atual
+    [SerializeField]int sceneA;
 
     void Start()
     {
@@ -86,6 +96,7 @@ public class PlayerMove : MonoBehaviour
         cc = GetComponent<CharacterController>();
         hpBarSlider.maxValue = hpMax;
         InvokeRepeating(nameof(ContadorFPS), 0, .5f);
+        sceneA = SceneManager.GetActiveScene().buildIndex;
     }
 
     void ContadorFPS()
@@ -278,15 +289,15 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    void EnemyCollision()
+    void EnemyCollision(float d)
     {
-        hp--;
+        hp -= d;
         borderDamage.SetTrigger("Dano");
         Vector3 randDamagePos = new(Random.Range(transform.position.x + 0.5f, transform.position.x - 0.5f), Random.Range(transform.position.y + 0.5f, transform.position.y - 0.5f), Random.Range(transform.position.z + 0.5f, transform.position.z - 0.5f));
         Instantiate(bloodParticle, randDamagePos, Quaternion.identity);
     }
 
-    void EnemyContinuosDamage()
+    void EnemyContinuosDamage(float takeDamageI)
     {
         if(continuosAtkTimer >= 0 && doDamage)
         {
@@ -295,7 +306,7 @@ public class PlayerMove : MonoBehaviour
         if(continuosAtkTimer < 0 && doDamage)
         {
             continuosAtkTimer = 0.2f;
-            hp--;
+            hp -= takeDamageI;
             if(spike)borderDamage.SetTrigger("Dano");
             Vector3 randDamagePos = new(Random.Range(transform.position.x + 0.5f, transform.position.x - 0.5f), Random.Range(transform.position.y + 0.5f, transform.position.y - 0.5f), Random.Range(transform.position.z + 0.5f, transform.position.z - 0.5f));
             Instantiate(bloodParticle, randDamagePos, Quaternion.identity);
@@ -444,8 +455,17 @@ public class PlayerMove : MonoBehaviour
         //Prosseguir para próxima fase
         if(value.started && inNextLevelArea)
         {
-            nextLevelPanelDelete.SetActive(true);
+            SceneManager.LoadScene(sceneA + 1);
+            //nextLevelPanelDelete.SetActive(true);
             cc.enabled = false;        
+        }
+
+        //Voltar para fase anterior
+        if (value.started && inBackLevelArea)
+        {
+            SceneManager.LoadScene(sceneA - 1);
+            //backLevelPanelDelete.SetActive(true);
+            cc.enabled = false;
         }
     }
 
@@ -502,7 +522,10 @@ public class PlayerMove : MonoBehaviour
     {
         if (other.gameObject.CompareTag("atkEnemy_hit") && hp > 0)
         {
-            EnemyCollision();
+            float d = 1;
+            EnemyAI enemy = other.GetComponentInParent<EnemyAI>();
+            if(enemy != null) d = enemy.damage;
+            EnemyCollision(d);
         }
 
         if (other.gameObject.CompareTag("checkpoint") && hp > 0)
@@ -519,6 +542,13 @@ public class PlayerMove : MonoBehaviour
             nextLevelPanel.SetActive(true);
         }
 
+        if (other.gameObject.CompareTag("backLevel") && hp > 0)
+        {
+            inBackLevelArea = other.gameObject;
+            inBackLevelArea = true;
+            backLevelPanel.SetActive(true);
+        }
+
         if (other.gameObject.CompareTag("cam") && hp > 0)
         {
             cams[0].SetActive(false);
@@ -530,15 +560,16 @@ public class PlayerMove : MonoBehaviour
     {
         if (other.gameObject.CompareTag("atkEnemy_continuos") && hp > 0)
         {
-            EnemyContinuosDamage();
             doDamage = true;
             if (other.gameObject.transform.parent.CompareTag("trap"))//Espinhos
             {
                 spike = true;
+                EnemyContinuosDamage(5);
             }
             if (other.gameObject.transform.CompareTag("atkEnemy_continuos") && !spike)//Nevoa
             {
                 toxic = true;
+                EnemyContinuosDamage(2);
             }
             
         }
@@ -562,6 +593,12 @@ public class PlayerMove : MonoBehaviour
         {
             nextLevelPanel.SetActive(false);
             inNextLevelArea = false;
+        }
+
+        if (other.gameObject.CompareTag("backLevel"))
+        {
+            backLevelPanel.SetActive(false);
+            inBackLevelArea = false;
         }
 
         if (other.gameObject.CompareTag("cam") && hp > 0)

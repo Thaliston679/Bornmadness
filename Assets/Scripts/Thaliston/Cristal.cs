@@ -17,6 +17,7 @@ public class Cristal : MonoBehaviour
             drop.GetComponent<ParticleSystemRenderer>().material = GetComponentInChildren<MeshRenderer>().material;
             GameObject.FindGameObjectWithTag("Player").GetComponent<GameManager>().crystalsCurrent++;
             GameObject.FindGameObjectWithTag("Player").GetComponent<GameManager>().UpdateEnemCris();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<SoundsManagerPlayer>().PlayerMine();
             Destroy(this.gameObject, 0.1f);
         }
     }
