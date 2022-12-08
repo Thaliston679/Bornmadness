@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Miguel/Menu.unity
+    guid: 0a363dadad53ec74f959148b0d003de8
+  - enabled: 1
     path: Assets/Scenes/Thaliston/Level 1.unity
     guid: 413e3f858782b9c45abcab334de41dbf
   - enabled: 1
