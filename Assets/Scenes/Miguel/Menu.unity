@@ -1907,6 +1907,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 260077097}
   m_CullTransparentMesh: 1
+--- !u!1 &260660330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 260660332}
+  - component: {fileID: 260660331}
+  m_Layer: 0
+  m_Name: gameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &260660331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260660330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3860eba85ac9764b9f3d06351239e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &260660332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260660330}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1028.0437, y: 552.172, z: -22.072071}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &267909362
 GameObject:
   m_ObjectHideFlags: 0
@@ -5886,9 +5930,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theName: 
+  nomeSave1: 
+  nomeSave2: 
+  nomeSave3: 
+  contaSave1: 0
+  contaSave2: 0
+  contaSave3: 0
   inputField: {fileID: 448179049}
   textDisplay: {fileID: 72288708}
-  conta: 0
   saves:
   - {fileID: 1596044161}
   - {fileID: 1301475386}
@@ -5897,7 +5946,9 @@ MonoBehaviour:
   - {fileID: 1030756892}
   - {fileID: 2025243985}
   - {fileID: 729671268}
-  savesTexts: []
+  saveText1: {fileID: 72288710}
+  slotSave: 0
+  saveLoad: {fileID: 260660331}
 --- !u!4 &801636089
 Transform:
   m_ObjectHideFlags: 0
@@ -10385,6 +10436,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 801636088}
+        m_TargetAssemblyTypeName: NameTranfer, Assembly-CSharp
+        m_MethodName: SaveG
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1459280498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12462,6 +12525,18 @@ MonoBehaviour:
       - m_Target: {fileID: 801636088}
         m_TargetAssemblyTypeName: NameTranfer, Assembly-CSharp
         m_MethodName: SelectSave
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 801636088}
+        m_TargetAssemblyTypeName: NameTranfer, Assembly-CSharp
+        m_MethodName: LoadG
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
