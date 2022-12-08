@@ -71,6 +71,8 @@ public class PlayerMove : MonoBehaviour
 
     //Recuperar HP
     [SerializeField] bool healing;
+    [SerializeField]float healCount = 5;
+    [SerializeField]Image healImg;
 
     //Next Level
     public GameObject nextLevelPanel;
@@ -97,6 +99,7 @@ public class PlayerMove : MonoBehaviour
         hpBarSlider.maxValue = hpMax;
         InvokeRepeating(nameof(ContadorFPS), 0, .5f);
         sceneA = SceneManager.GetActiveScene().buildIndex;
+        healImg.fillAmount = healCount / 5;
     }
 
     void ContadorFPS()
@@ -417,7 +420,7 @@ public class PlayerMove : MonoBehaviour
 
     public void PlayerOnHeal(InputAction.CallbackContext value)
     {
-        if (value.started && !healing)
+        if (value.started && !healing && healCount > 0)
         {
             healing = true;
         }
@@ -450,6 +453,8 @@ public class PlayerMove : MonoBehaviour
             Invoke(nameof(PositionDescanso), 0.01f);
             healing = false;
             hp = hpMax;
+            healCount = 5;
+            healImg.fillAmount = healCount / 5;
         }
 
         //Prosseguir para próxima fase
@@ -516,6 +521,11 @@ public class PlayerMove : MonoBehaviour
     public void EndHeal()
     {
         healing = false;
+    }
+    public void UseHeal()
+    {
+        healCount--;
+        healImg.fillAmount = (healCount / 5);
     }
 
     private void OnTriggerEnter(Collider other)

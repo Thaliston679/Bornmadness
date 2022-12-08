@@ -29,6 +29,11 @@ public class PlayerComboIncrement : MonoBehaviour
         GetComponentInParent<PlayerMove>().EndHeal();
     }
 
+    void UseHeal()
+    {
+        GetComponentInParent<PlayerMove>().UseHeal();
+    }
+
     //SoundsManager
     public void PlayerDeath()
     {
