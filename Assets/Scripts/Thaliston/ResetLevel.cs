@@ -7,6 +7,6 @@ public class ResetLevel : MonoBehaviour
 {
     public void ResetGameLevel()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -69,6 +69,11 @@ public class EnemyCallAtk : MonoBehaviour
         enemySounds.GoblinDeath();
     }
 
+    public void OgroDeath()
+    {
+        enemySounds.OgroDeath();
+    }
+
     public void Zarabatana()
     {
         enemySounds.Zarabatana();

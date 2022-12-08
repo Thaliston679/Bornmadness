@@ -289,6 +289,7 @@ MonoBehaviour:
   faca: {fileID: 8300000, guid: 65572d3c54a687e408663c9d57bec8c7, type: 3}
   goblinDamage: {fileID: 8300000, guid: 511fbc385f406044088c5dbd19b237c0, type: 3}
   ogroDamage: {fileID: 8300000, guid: bf2031a0c7246d94d96710f267c4958e, type: 3}
+  ogroDeath: {fileID: 8300000, guid: 8463929a9fe953e4181683c15f4dda99, type: 3}
   goblinDeath: {fileID: 8300000, guid: 1635910def8f4fd4f990705a84bbec00, type: 3}
   zarabatana: {fileID: 8300000, guid: 00e662e66299d3a458197a94ed0733f5, type: 3}
 --- !u!1 &6475731719980183921

@@ -52,6 +52,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float hpMax = 10;
     public Slider hpBarSlider;
 
+    [SerializeField] Image hpFill;
+
     bool dodge = false;
     float dodgeTimer = 0f;
     [SerializeField] GameObject frontVision;
@@ -100,6 +102,7 @@ public class PlayerMove : MonoBehaviour
         InvokeRepeating(nameof(ContadorFPS), 0, .5f);
         sceneA = SceneManager.GetActiveScene().buildIndex;
         healImg.fillAmount = healCount / 5;
+        hpFill.fillAmount = hp / hpMax;
     }
 
     void ContadorFPS()
@@ -295,6 +298,7 @@ public class PlayerMove : MonoBehaviour
     void EnemyCollision(float d)
     {
         hp -= d;
+        hpFill.fillAmount = hp / hpMax;
         borderDamage.SetTrigger("Dano");
         Vector3 randDamagePos = new(Random.Range(transform.position.x + 0.5f, transform.position.x - 0.5f), Random.Range(transform.position.y + 0.5f, transform.position.y - 0.5f), Random.Range(transform.position.z + 0.5f, transform.position.z - 0.5f));
         Instantiate(bloodParticle, randDamagePos, Quaternion.identity);
@@ -310,7 +314,8 @@ public class PlayerMove : MonoBehaviour
         {
             continuosAtkTimer = 0.2f;
             hp -= takeDamageI;
-            if(spike)borderDamage.SetTrigger("Dano");
+            hpFill.fillAmount = hp / hpMax;
+            if (spike)borderDamage.SetTrigger("Dano");
             Vector3 randDamagePos = new(Random.Range(transform.position.x + 0.5f, transform.position.x - 0.5f), Random.Range(transform.position.y + 0.5f, transform.position.y - 0.5f), Random.Range(transform.position.z + 0.5f, transform.position.z - 0.5f));
             Instantiate(bloodParticle, randDamagePos, Quaternion.identity);
         }
@@ -453,6 +458,7 @@ public class PlayerMove : MonoBehaviour
             Invoke(nameof(PositionDescanso), 0.01f);
             healing = false;
             hp = hpMax;
+            hpFill.fillAmount = hp / hpMax;
             healCount = 5;
             healImg.fillAmount = healCount / 5;
         }
@@ -516,6 +522,7 @@ public class PlayerMove : MonoBehaviour
     {
         Debug.Log("Recuperou HP");
         hp += 10;
+        hpFill.fillAmount = hp / hpMax;
         if (hp > hpMax) hp = hpMax;
     }
     public void EndHeal()

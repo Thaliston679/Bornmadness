@@ -11,6 +11,7 @@ public class SoundsManagerEnemy : MonoBehaviour
     public AudioClip faca;
     public AudioClip goblinDamage;
     public AudioClip ogroDamage;
+    public AudioClip ogroDeath;
     public AudioClip goblinDeath;
     public AudioClip zarabatana;
 
@@ -55,6 +56,11 @@ public class SoundsManagerEnemy : MonoBehaviour
     public void GoblinDeath()
     {
         efeitosSonoros.PlayOneShot(goblinDeath);
+    }
+
+    public void OgroDeath()
+    {
+        efeitosSonoros.PlayOneShot(ogroDeath);
     }
 
     public void Zarabatana()
